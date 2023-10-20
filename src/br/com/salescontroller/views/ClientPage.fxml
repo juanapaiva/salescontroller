@@ -46,7 +46,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="500.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="500.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.salescontroller.controllers.ClientController">
   <children>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="480.0" prefWidth="900.0" VBox.vgrow="ALWAYS">
          <children>
@@ -135,14 +135,14 @@
                                     <Font size="14.0" />
                                  </font>
                               </Label>
-                              <TextField fx:id="tbCode" layoutX="75.0" layoutY="15.0" prefHeight="25.0" prefWidth="63.0" />
+                              <TextField fx:id="tbCode" layoutX="75.0" layoutY="15.0" onKeyTyped="#checkNumberFormat" prefHeight="25.0" prefWidth="63.0" />
                               <TextField fx:id="tbName" layoutX="75.0" layoutY="55.0" prefHeight="25.0" prefWidth="522.0" />
                               <TextField fx:id="tbEmail" layoutX="75.0" layoutY="95.0" prefHeight="25.0" prefWidth="287.0" promptText="Ex.: email@hotmail.com" />
-                              <TextField fx:id="tbCellphone" layoutX="426.0" layoutY="95.0" prefHeight="25.0" prefWidth="170.0" promptText="Ex.: 11988887777" />
-                              <TextField fx:id="tbPhone" layoutX="706.0" layoutY="95.0" prefHeight="25.0" prefWidth="170.0" promptText="Ex.: 1133334444" />
-                              <TextField fx:id="tbCep" layoutX="75.0" layoutY="135.0" prefHeight="25.0" prefWidth="170.0" promptText="Ex.: 11111222" />
+                              <TextField fx:id="tbCellphone" layoutX="426.0" layoutY="95.0" onKeyTyped="#checkNumberFormat" prefHeight="25.0" prefWidth="170.0" promptText="Ex.: 11988887777" />
+                              <TextField fx:id="tbPhone" layoutX="706.0" layoutY="95.0" onKeyTyped="#checkNumberFormat" prefHeight="25.0" prefWidth="170.0" promptText="Ex.: 1133334444" />
+                              <TextField fx:id="tbCep" layoutX="75.0" layoutY="135.0" onKeyTyped="#checkNumberFormat" prefHeight="25.0" prefWidth="170.0" promptText="Ex.: 11111222" />
                               <TextField fx:id="tbAddress" layoutX="326.0" layoutY="135.0" prefHeight="25.0" prefWidth="408.0" />
-                              <TextField fx:id="tbNumberAddress" layoutX="807.0" layoutY="135.0" prefHeight="25.0" prefWidth="70.0" />
+                              <TextField fx:id="tbNumberAddress" layoutX="807.0" layoutY="135.0" onKeyTyped="#checkNumberFormat" prefHeight="25.0" prefWidth="70.0" />
                               <TextField fx:id="tbNeighborhood" layoutX="75.0" layoutY="175.0" prefHeight="25.0" prefWidth="170.0" />
                               <TextField fx:id="tbCity" layoutX="313.0" layoutY="175.0" prefHeight="25.0" prefWidth="170.0" />
                               <TextField fx:id="tbComplement" layoutX="601.0" layoutY="175.0" prefHeight="25.0" prefWidth="170.0" />
@@ -152,8 +152,8 @@
                                   <MenuItem mnemonicParsing="false" text="RJ" />
                                 </items>
                               </SplitMenuButton>
-                              <TextField fx:id="tbRg" layoutX="75.0" layoutY="215.0" prefHeight="25.0" prefWidth="170.0" promptText="Ex.: 112223334" />
-                              <TextField fx:id="tbCpf" layoutX="313.0" layoutY="215.0" prefHeight="25.0" prefWidth="170.0" promptText="Ex.: 11122233344" />
+                              <TextField fx:id="tbRg" layoutX="75.0" layoutY="215.0" onKeyTyped="#checkNumberFormat" prefHeight="25.0" prefWidth="170.0" promptText="Ex.: 112223334" />
+                              <TextField fx:id="tbCpf" layoutX="313.0" layoutY="215.0" onKeyTyped="#checkNumberFormat" prefHeight="25.0" prefWidth="170.0" promptText="Ex.: 11122233344" />
                            </children>
                         </AnchorPane>
                   </content>
