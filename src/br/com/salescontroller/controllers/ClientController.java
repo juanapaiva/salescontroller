@@ -1,17 +1,21 @@
 package br.com.salescontroller.controllers;
 
+import java.net.URL;
+import java.util.ResourceBundle;
+
+import br.com.salescontroller.dao.ClientsDAO;
+import br.com.salescontroller.models.ClientsModel;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.SplitMenuButton;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 
-public class ClientController {
+public class ClientController implements Initializable {
 
-    // Register tab attributes
-    
-    @FXML
-    private TextField tbCode;    
+    // Register tab attributes  
     @FXML
     private TextField tbName;
     @FXML
@@ -25,20 +29,24 @@ public class ClientController {
     @FXML
     private TextField tbAddress;
     @FXML
-    private TextField tbNumberAddress;
+    private TextField tbAddressNumber;
     @FXML
     private TextField tbNeighborhood;
     @FXML
     private TextField tbCity;
     @FXML
     private TextField tbComplement;
+
     @FXML
-    private SplitMenuButton spmState;
+    private ChoiceBox<String> cbState;
+    private String[] states = {"AC","AL","AP","AM","BA","CE","DF","ES","GO","MA","MT","MS","MG","PA","PB","PR","PE","PI","RJ","RN","RS","RO","RR","SC","SP","SE","TO"};
+
     @FXML
     private TextField tbRg;
     @FXML
     private TextField tbCpf;
 
+    // Buttons
     @FXML
     private Button btnNew;
     @FXML
@@ -49,12 +57,17 @@ public class ClientController {
     private Button btnDelete;
 
     // Search tab attributes
-
     @FXML
     private TextField tbNameSearch;
 
     @FXML
     private Button btnSearch;
+
+    //
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        cbState.getItems().addAll(states);
+    }
 
     // View actions
 
@@ -79,5 +92,42 @@ public class ClientController {
             event.consume();
         }
     }*/
+
+    @FXML
+    void btnNewAction(ActionEvent event) {
+
+    }
+
+    @FXML
+    void btnSaveAction(ActionEvent event) {
+        ClientsModel client = new ClientsModel();
+
+        client.setClientName(tbName.getText().toUpperCase());
+        client.setRg(tbRg.getText().toUpperCase());
+        client.setCpf(tbCpf.getText().toUpperCase());
+        client.setEmail(tbEmail.getText().toUpperCase());
+        client.setPhone(tbPhone.getText().toUpperCase());
+        client.setCellphone(tbCellphone.getText().toUpperCase());
+        client.setCep(tbCep.getText().toUpperCase());
+        client.setAddress(tbAddress.getText().toUpperCase());
+        client.setAddressNumber(Integer.parseInt(tbAddressNumber.getText()));
+        client.setComplement(tbComplement.getText().toUpperCase());
+        client.setNeighborhood(tbNeighborhood.getText().toUpperCase());
+        client.setCity(tbCity.getText().toUpperCase());
+        client.setState(cbState.getValue());
+
+        ClientsDAO dao = new ClientsDAO();
+        dao.create(client);
+    }
+
+    @FXML
+    void btnEditAction(ActionEvent event) {
+
+    }
+
+    @FXML
+    void btnDeleteAction(ActionEvent event) {
+
+    }
 
 }
