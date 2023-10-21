@@ -2,12 +2,15 @@ package br.com.salescontroller.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
 
 import br.com.salescontroller.jdbc.ConnectionFactory;
 import br.com.salescontroller.models.ClientsModel;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class ClientsDAO {
 
@@ -43,6 +46,40 @@ public class ClientsDAO {
             JOptionPane.showMessageDialog(null, "Cliente cadastrado com sucesso!");
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Erro no cadastro: " + e);
+        }
+    }
+
+    public ObservableList<ClientsModel> readAll() {
+        try {
+            ObservableList<ClientsModel> clients = FXCollections.observableArrayList();
+            String sql = "SELECT * FROM tb_clients";
+            PreparedStatement stmt = con.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+
+            while(rs.next()) {
+                ClientsModel client = new ClientsModel();
+                client.setId(rs.getInt("id"));
+                client.setClientName(rs.getString("client_name"));
+                client.setRg(rs.getString("rg"));
+                client.setCpf(rs.getString("cpf"));
+                client.setEmail(rs.getString("email"));
+                client.setPhone(rs.getString("phone"));
+                client.setCellphone(rs.getString("cellphone"));
+                client.setCep(rs.getString("cep"));
+                client.setAddress(rs.getString("address"));
+                client.setAddressNumber(rs.getInt("address_number"));
+                client.setComplement(rs.getString("complement"));
+                client.setNeighborhood(rs.getString("neighborhood"));
+                client.setCity(rs.getString("city"));
+                client.setState(rs.getString("state"));
+
+                clients.add(client);
+            }
+
+            return clients;
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro na consulta: " + e);
+            return null;
         }
     }
 }

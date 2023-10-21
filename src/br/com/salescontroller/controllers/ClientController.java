@@ -5,12 +5,16 @@ import java.util.ResourceBundle;
 
 import br.com.salescontroller.dao.ClientsDAO;
 import br.com.salescontroller.models.ClientsModel;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 
 public class ClientController implements Initializable {
@@ -46,7 +50,7 @@ public class ClientController implements Initializable {
     @FXML
     private TextField tbCpf;
 
-    // Buttons
+    // Register tab buttons
     @FXML
     private Button btnNew;
     @FXML
@@ -60,6 +64,38 @@ public class ClientController implements Initializable {
     @FXML
     private TextField tbNameSearch;
 
+    @FXML
+    private TableView<ClientsModel> tableClients;
+    @FXML
+    private TableColumn<ClientsModel, Integer> tableCId;
+    @FXML
+    private TableColumn<ClientsModel, String> tableCClientName;
+    @FXML
+    private TableColumn<ClientsModel, String> tableCRg;
+    @FXML
+    private TableColumn<ClientsModel, String> tableCCpf;
+    @FXML
+    private TableColumn<ClientsModel, String> tableCEmail;
+    @FXML
+    private TableColumn<ClientsModel, String> tableCPhone;
+    @FXML
+    private TableColumn<ClientsModel, String> tableCCellphone;
+    @FXML
+    private TableColumn<ClientsModel, String> tableCCep;
+    @FXML
+    private TableColumn<ClientsModel, String> tableCAddress;
+    @FXML
+    private TableColumn<ClientsModel, Integer> tableCAddressNumber;
+    @FXML
+    private TableColumn<ClientsModel, String> tableCComplement;
+    @FXML
+    private TableColumn<ClientsModel, String> tableCNeighborhood;
+    @FXML
+    private TableColumn<ClientsModel, String> tableCCity;
+    @FXML
+    private TableColumn<ClientsModel, String> tableCState;
+
+    // Search tab buttons
     @FXML
     private Button btnSearch;
 
@@ -128,6 +164,29 @@ public class ClientController implements Initializable {
     @FXML
     void btnDeleteAction(ActionEvent event) {
 
+    }
+
+    @FXML
+    void btnSearchAction(ActionEvent event) {
+        ClientsDAO dao = new ClientsDAO();
+        ObservableList<ClientsModel> clients = dao.readAll();
+
+        tableCId.setCellValueFactory(new PropertyValueFactory<ClientsModel, Integer>("id"));
+        tableCClientName.setCellValueFactory(new PropertyValueFactory<ClientsModel, String>("client_name"));
+        tableCRg.setCellValueFactory(new PropertyValueFactory<ClientsModel, String>("rg"));
+        tableCCpf.setCellValueFactory(new PropertyValueFactory<ClientsModel, String>("cpf"));
+        tableCEmail.setCellValueFactory(new PropertyValueFactory<ClientsModel, String>("email"));
+        tableCPhone.setCellValueFactory(new PropertyValueFactory<ClientsModel, String>("phone"));
+        tableCCellphone.setCellValueFactory(new PropertyValueFactory<ClientsModel, String>("cellphone"));
+        tableCCep.setCellValueFactory(new PropertyValueFactory<ClientsModel, String>("cep"));
+        tableCAddress.setCellValueFactory(new PropertyValueFactory<ClientsModel, String>("address"));
+        tableCAddressNumber.setCellValueFactory(new PropertyValueFactory<ClientsModel, Integer>("address_number"));
+        tableCComplement.setCellValueFactory(new PropertyValueFactory<ClientsModel, String>("complement"));
+        tableCNeighborhood.setCellValueFactory(new PropertyValueFactory<ClientsModel, String>("neighborhood"));
+        tableCCity.setCellValueFactory(new PropertyValueFactory<ClientsModel, String>("city"));
+        tableCState.setCellValueFactory(new PropertyValueFactory<ClientsModel, String>("state"));
+
+        tableClients.setItems(clients);
     }
 
 }

@@ -156,21 +156,23 @@
                                  </font>
                               </Label>
                               <TextField fx:id="tbNameSearch" layoutX="75.0" layoutY="15.0" prefHeight="25.0" prefWidth="522.0" />
-                              <Button fx:id="btnSearch" layoutX="608.0" layoutY="15.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="124.0" text="Pesquisar" />
-                              <TableView layoutY="65.0" prefHeight="245.0" prefWidth="900.0">
+                              <Button fx:id="btnSearch" layoutX="608.0" layoutY="15.0" mnemonicParsing="false" onAction="#btnSearchAction" prefHeight="25.0" prefWidth="124.0" text="Pesquisar" />
+                              <TableView fx:id="tableClients" layoutY="65.0" prefHeight="245.0" prefWidth="900.0">
                                 <columns>
-                                  <TableColumn prefWidth="75.0" text="Código" />
-                                  <TableColumn prefWidth="75.0" text="Nome" />
-                                    <TableColumn prefWidth="75.0" text="RG" />
-                                    <TableColumn prefWidth="75.0" text="E-mail" />
-                                    <TableColumn prefWidth="75.0" text="Telefone" />
-                                    <TableColumn prefWidth="75.0" text="Celular" />
-                                    <TableColumn prefWidth="75.0" text="CEP" />
-                                    <TableColumn prefWidth="75.0" text="Número" />
-                                    <TableColumn prefWidth="75.0" text="Complemento" />
-                                    <TableColumn prefWidth="75.0" text="Bairro" />
-                                    <TableColumn prefWidth="75.0" text="Cidade" />
-                                    <TableColumn prefWidth="75.0" text="UF" />
+                                  <TableColumn fx:id="tableCId" prefWidth="75.0" text="Código" />
+                                  <TableColumn fx:id="tableCClientName" prefWidth="75.0" text="Nome" />
+                                    <TableColumn fx:id="tableCRg" prefWidth="75.0" text="RG" />
+                                    <TableColumn fx:id="tableCCpf" prefWidth="75.0" text="CPF" />
+                                    <TableColumn fx:id="tableCEmail" prefWidth="75.0" text="E-mail" />
+                                    <TableColumn fx:id="tableCPhone" prefWidth="75.0" text="Telefone" />
+                                    <TableColumn fx:id="tableCCellphone" prefWidth="75.0" text="Celular" />
+                                    <TableColumn fx:id="tableCCep" prefWidth="75.0" text="CEP" />
+                                    <TableColumn fx:id="tableCAddress" prefWidth="75.0" text="Endereço" />
+                                    <TableColumn fx:id="tableCAddressNumber" prefWidth="75.0" text="Número" />
+                                    <TableColumn fx:id="tableCComplement" prefWidth="75.0" text="Complemento" />
+                                    <TableColumn fx:id="tableCNeighborhood" prefWidth="75.0" text="Bairro" />
+                                    <TableColumn fx:id="tableCCity" prefWidth="75.0" text="Cidade" />
+                                    <TableColumn fx:id="tableCState" prefWidth="75.0" text="UF" />
                                 </columns>
                               </TableView>
                            </children></AnchorPane>
