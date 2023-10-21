@@ -4,12 +4,12 @@ public class ClientsModel {
     
     private Integer id;
     private String clientName;
-    private Integer rg;
-    private Integer cpf;
+    private String rg;
+    private String cpf;
     private String email;
-    private Integer phone;
-    private Integer cellphone;
-    private Integer cep;
+    private String phone;
+    private String cellphone;
+    private String cep;
     private String address;
     private Integer addressNumber;
     private String complement;
@@ -33,19 +33,19 @@ public class ClientsModel {
         this.clientName = clientName;
     }
 
-    public Integer getRg() {
+    public String getRg() {
         return this.rg;
     }
 
-    public void setRg(Integer rg) {
+    public void setRg(String rg) {
         this.rg = rg;
     }
 
-    public Integer getCpf() {
+    public String getCpf() {
         return this.cpf;
     }
 
-    public void setCpf(Integer cpf) {
+    public void setCpf(String cpf) {
         this.cpf = cpf;
     }
 
@@ -57,27 +57,27 @@ public class ClientsModel {
         this.email = email;
     }
 
-    public Integer getPhone() {
+    public String getPhone() {
         return this.phone;
     }
 
-    public void setPhone(Integer phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 
-    public Integer getCellphone() {
+    public String getCellphone() {
         return this.cellphone;
     }
 
-    public void setCellphone(Integer cellphone) {
+    public void setCellphone(String cellphone) {
         this.cellphone = cellphone;
     }
 
-    public Integer getCep() {
+    public String getCep() {
         return this.cep;
     }
 
-    public void setCep(Integer cep) {
+    public void setCep(String cep) {
         this.cep = cep;
     }
 

@@ -19,16 +19,17 @@ public class ClientsDAO {
     
     public void create(ClientsModel client) {
         try {
-            String sql = "INSERT INTO tb_clients VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            String sql = "INSERT INTO tb_clients (client_name, rg, cpf, email, phone, cellphone, cep, address, address_number, complement, neighborhood, city, state)" 
+                        + "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
             PreparedStatement stmt = con.prepareStatement(sql);
 
             stmt.setString(1, client.getClientName());
-            stmt.setInt(2, client.getRg());
-            stmt.setInt(3, client.getCpf());
+            stmt.setString(2, client.getRg());
+            stmt.setString(3, client.getCpf());
             stmt.setString(4, client.getEmail());
-            stmt.setInt(5, client.getPhone());
-            stmt.setInt(6, client.getCellphone());
-            stmt.setInt(7, client.getCep());
+            stmt.setString(5, client.getPhone());
+            stmt.setString(6, client.getCellphone());
+            stmt.setString(7, client.getCep());
             stmt.setString(8, client.getAddress());
             stmt.setInt(9, client.getAddressNumber());
             stmt.setString(10, client.getComplement());
