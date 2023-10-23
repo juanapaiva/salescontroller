@@ -58,7 +58,7 @@
                   </Label>
                </children>
             </Pane>
-            <TabPane layoutY="71.0" maxHeight="330.0" prefHeight="330.0" prefWidth="900.0" tabClosingPolicy="UNAVAILABLE">
+            <TabPane fx:id="tabPaneClients" layoutY="71.0" maxHeight="330.0" prefHeight="330.0" prefWidth="900.0" tabClosingPolicy="UNAVAILABLE">
               <tabs>
                 <Tab text="Dados pessoais">
                   <content>
@@ -129,19 +129,25 @@
                                     <Font size="14.0" />
                                  </font>
                               </Label>
-                              <TextField fx:id="tbName" layoutX="75.0" layoutY="55.0" prefHeight="25.0" prefWidth="522.0" />
-                              <TextField fx:id="tbEmail" layoutX="75.0" layoutY="95.0" prefHeight="25.0" prefWidth="287.0" promptText="Ex.: email@hotmail.com" />
-                              <TextField fx:id="tbCellphone" layoutX="426.0" layoutY="95.0" onKeyTyped="#checkNumberFormat" prefHeight="25.0" prefWidth="170.0" promptText="Ex.: 11988887777" />
-                              <TextField fx:id="tbPhone" layoutX="706.0" layoutY="95.0" onKeyTyped="#checkNumberFormat" prefHeight="25.0" prefWidth="170.0" promptText="Ex.: 1133334444" />
-                              <TextField fx:id="tbCep" layoutX="75.0" layoutY="135.0" onKeyTyped="#checkNumberFormat" prefHeight="25.0" prefWidth="170.0" promptText="Ex.: 11111222" />
-                              <TextField fx:id="tbAddress" layoutX="326.0" layoutY="135.0" prefHeight="25.0" prefWidth="408.0" />
-                              <TextField fx:id="tbAddressNumber" layoutX="807.0" layoutY="135.0" onKeyTyped="#checkNumberFormat" prefHeight="25.0" prefWidth="70.0" />
-                              <TextField fx:id="tbNeighborhood" layoutX="75.0" layoutY="175.0" prefHeight="25.0" prefWidth="170.0" />
-                              <TextField fx:id="tbCity" layoutX="313.0" layoutY="175.0" prefHeight="25.0" prefWidth="170.0" />
-                              <TextField fx:id="tbComplement" layoutX="601.0" layoutY="175.0" prefHeight="25.0" prefWidth="170.0" />
-                              <TextField fx:id="tbRg" layoutX="75.0" layoutY="215.0" onKeyTyped="#checkNumberFormat" prefHeight="25.0" prefWidth="170.0" promptText="Ex.: 112223334" />
-                              <TextField fx:id="tbCpf" layoutX="313.0" layoutY="215.0" onKeyTyped="#checkNumberFormat" prefHeight="25.0" prefWidth="170.0" promptText="Ex.: 11122233344" />
+                              <TextField fx:id="tfName" layoutX="75.0" layoutY="55.0" prefHeight="25.0" prefWidth="522.0" />
+                              <TextField fx:id="tfEmail" layoutX="75.0" layoutY="95.0" prefHeight="25.0" prefWidth="287.0" promptText="Ex.: email@hotmail.com" />
+                              <TextField fx:id="tfCellphone" layoutX="426.0" layoutY="95.0" onKeyTyped="#checkNumberFormat" prefHeight="25.0" prefWidth="170.0" promptText="Ex.: 11988887777" />
+                              <TextField fx:id="tfPhone" layoutX="706.0" layoutY="95.0" onKeyTyped="#checkNumberFormat" prefHeight="25.0" prefWidth="170.0" promptText="Ex.: 1133334444" />
+                              <TextField fx:id="tfCep" layoutX="75.0" layoutY="135.0" onKeyTyped="#checkNumberFormat" prefHeight="25.0" prefWidth="170.0" promptText="Ex.: 11111222" />
+                              <TextField fx:id="tfAddress" layoutX="326.0" layoutY="135.0" prefHeight="25.0" prefWidth="408.0" />
+                              <TextField fx:id="tfAddressNumber" layoutX="807.0" layoutY="135.0" onKeyTyped="#checkNumberFormat" prefHeight="25.0" prefWidth="70.0" />
+                              <TextField fx:id="tfNeighborhood" layoutX="75.0" layoutY="175.0" prefHeight="25.0" prefWidth="170.0" />
+                              <TextField fx:id="tfCity" layoutX="313.0" layoutY="175.0" prefHeight="25.0" prefWidth="170.0" />
+                              <TextField fx:id="tfComplement" layoutX="601.0" layoutY="175.0" prefHeight="25.0" prefWidth="170.0" />
+                              <TextField fx:id="tfRg" layoutX="75.0" layoutY="215.0" onKeyTyped="#checkNumberFormat" prefHeight="25.0" prefWidth="170.0" promptText="Ex.: 112223334" />
+                              <TextField fx:id="tfCpf" layoutX="313.0" layoutY="215.0" onKeyTyped="#checkNumberFormat" prefHeight="25.0" prefWidth="170.0" promptText="Ex.: 11122233344" />
                               <ChoiceBox fx:id="cbState" layoutX="807.0" layoutY="173.0" prefWidth="70.0" />
+                              <Label layoutX="20.0" layoutY="15.0" text="Id:">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="tfId" disable="true" layoutX="75.0" layoutY="15.0" onKeyTyped="#checkNumberFormat" prefHeight="25.0" prefWidth="70.0" />
                            </children>
                         </AnchorPane>
                   </content>
@@ -155,9 +161,9 @@
                                     <Font size="14.0" />
                                  </font>
                               </Label>
-                              <TextField fx:id="tbNameSearch" layoutX="75.0" layoutY="15.0" prefHeight="25.0" prefWidth="522.0" />
+                              <TextField fx:id="tfNameSearch" layoutX="75.0" layoutY="15.0" prefHeight="25.0" prefWidth="522.0" />
                               <Button fx:id="btnSearch" layoutX="608.0" layoutY="15.0" mnemonicParsing="false" onAction="#btnSearchAction" prefHeight="25.0" prefWidth="124.0" text="Pesquisar" />
-                              <TableView fx:id="tableClients" layoutY="65.0" prefHeight="245.0" prefWidth="900.0">
+                              <TableView fx:id="tableClients" layoutY="65.0" onMouseClicked="#selectedRegisterAction" prefHeight="245.0" prefWidth="900.0">
                                 <columns>
                                   <TableColumn fx:id="tableCId" prefWidth="75.0" text="Código" />
                                   <TableColumn fx:id="tableCClientName" prefWidth="75.0" text="Nome" />

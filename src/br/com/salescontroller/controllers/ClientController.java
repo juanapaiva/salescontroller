@@ -11,44 +11,53 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.SingleSelectionModel;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 
 public class ClientController implements Initializable {
 
-    // Register tab attributes  
     @FXML
-    private TextField tbName;
+    private TabPane tabPaneClients;
+
+    // Register tab attributes
     @FXML
-    private TextField tbEmail;    
+    private TextField tfId;
     @FXML
-    private TextField tbCellphone;
+    private TextField tfName;
     @FXML
-    private TextField tbPhone;
+    private TextField tfEmail;    
     @FXML
-    private TextField tbCep;
+    private TextField tfCellphone;
     @FXML
-    private TextField tbAddress;
+    private TextField tfPhone;
     @FXML
-    private TextField tbAddressNumber;
+    private TextField tfCep;
     @FXML
-    private TextField tbNeighborhood;
+    private TextField tfAddress;
     @FXML
-    private TextField tbCity;
+    private TextField tfAddressNumber;
     @FXML
-    private TextField tbComplement;
+    private TextField tfNeighborhood;
+    @FXML
+    private TextField tfCity;
+    @FXML
+    private TextField tfComplement;
 
     @FXML
     private ChoiceBox<String> cbState;
     private String[] states = {"AC","AL","AP","AM","BA","CE","DF","ES","GO","MA","MT","MS","MG","PA","PB","PR","PE","PI","RJ","RN","RS","RO","RR","SC","SP","SE","TO"};
 
     @FXML
-    private TextField tbRg;
+    private TextField tfRg;
     @FXML
-    private TextField tbCpf;
+    private TextField tfCpf;
 
     // Register tab buttons
     @FXML
@@ -62,7 +71,7 @@ public class ClientController implements Initializable {
 
     // Search tab attributes
     @FXML
-    private TextField tbNameSearch;
+    private TextField tfNameSearch;
 
     @FXML
     private TableView<ClientsModel> tableClients;
@@ -138,21 +147,21 @@ public class ClientController implements Initializable {
     void btnSaveAction(ActionEvent event) {
         ClientsModel client = new ClientsModel();
 
-        client.setClientName(tbName.getText().toUpperCase());
-        client.setRg(tbRg.getText().toUpperCase());
-        client.setCpf(tbCpf.getText().toUpperCase());
-        client.setEmail(tbEmail.getText().toUpperCase());
-        client.setPhone(tbPhone.getText().toUpperCase());
-        client.setCellphone(tbCellphone.getText().toUpperCase());
-        client.setCep(tbCep.getText().toUpperCase());
-        client.setAddress(tbAddress.getText().toUpperCase());
+        client.setClientName(tfName.getText().toUpperCase());
+        client.setRg(tfRg.getText().toUpperCase());
+        client.setCpf(tfCpf.getText().toUpperCase());
+        client.setEmail(tfEmail.getText().toUpperCase());
+        client.setPhone(tfPhone.getText().toUpperCase());
+        client.setCellphone(tfCellphone.getText().toUpperCase());
+        client.setCep(tfCep.getText().toUpperCase());
+        client.setAddress(tfAddress.getText().toUpperCase());
 
-        Integer addressNumber = (tbAddressNumber.getText().isEmpty()) ? 0 : Integer.parseInt(tbAddressNumber.getText());
+        Integer addressNumber = (tfAddressNumber.getText().isEmpty()) ? 0 : Integer.parseInt(tfAddressNumber.getText());
         client.setAddressNumber(addressNumber);
         
-        client.setComplement(tbComplement.getText().toUpperCase());
-        client.setNeighborhood(tbNeighborhood.getText().toUpperCase());
-        client.setCity(tbCity.getText().toUpperCase());
+        client.setComplement(tfComplement.getText().toUpperCase());
+        client.setNeighborhood(tfNeighborhood.getText().toUpperCase());
+        client.setCity(tfCity.getText().toUpperCase());
         client.setState(cbState.getValue());
 
         ClientsDAO dao = new ClientsDAO();
@@ -161,7 +170,29 @@ public class ClientController implements Initializable {
 
     @FXML
     void btnEditAction(ActionEvent event) {
+        ClientsModel client = new ClientsModel();
 
+        client.setClientName(tfName.getText().toUpperCase());
+        client.setRg(tfRg.getText().toUpperCase());
+        client.setCpf(tfCpf.getText().toUpperCase());
+        client.setEmail(tfEmail.getText().toUpperCase());
+        client.setPhone(tfPhone.getText().toUpperCase());
+        client.setCellphone(tfCellphone.getText().toUpperCase());
+        client.setCep(tfCep.getText().toUpperCase());
+        client.setAddress(tfAddress.getText().toUpperCase());
+
+        Integer addressNumber = (tfAddressNumber.getText().isEmpty()) ? 0 : Integer.parseInt(tfAddressNumber.getText());
+        client.setAddressNumber(addressNumber);
+        
+        client.setComplement(tfComplement.getText().toUpperCase());
+        client.setNeighborhood(tfNeighborhood.getText().toUpperCase());
+        client.setCity(tfCity.getText().toUpperCase());
+        client.setState(cbState.getValue());
+
+        client.setId(Integer.parseInt(tfId.getText()));
+
+        ClientsDAO dao = new ClientsDAO();
+        dao.updateAll(client);
     }
 
     @FXML
@@ -190,6 +221,27 @@ public class ClientController implements Initializable {
         tableCState.setCellValueFactory(new PropertyValueFactory<ClientsModel, String>("state"));
 
         tableClients.setItems(clients);
+    }
+
+    @FXML
+    void selectedRegisterAction(MouseEvent event) {
+        SingleSelectionModel<Tab> selectionModel = tabPaneClients.getSelectionModel();
+        selectionModel.select(0);
+
+        tfId.setText(tableClients.getSelectionModel().getSelectedItem().getId().toString());
+        tfName.setText(tableClients.getSelectionModel().getSelectedItem().getClientName());
+        tfRg.setText(tableClients.getSelectionModel().getSelectedItem().getRg());
+        tfCpf.setText(tableClients.getSelectionModel().getSelectedItem().getCpf());
+        tfEmail.setText(tableClients.getSelectionModel().getSelectedItem().getEmail());
+        tfPhone.setText(tableClients.getSelectionModel().getSelectedItem().getPhone());
+        tfCellphone.setText(tableClients.getSelectionModel().getSelectedItem().getCellphone());
+        tfCep.setText(tableClients.getSelectionModel().getSelectedItem().getCep());
+        tfAddress.setText(tableClients.getSelectionModel().getSelectedItem().getAddress());
+        tfAddressNumber.setText(tableClients.getSelectionModel().getSelectedItem().getAddressNumber().toString());
+        tfComplement.setText(tableClients.getSelectionModel().getSelectedItem().getComplement());
+        tfNeighborhood.setText(tableClients.getSelectionModel().getSelectedItem().getNeighborhood());
+        tfCity.setText(tableClients.getSelectionModel().getSelectedItem().getCity());
+        cbState.getSelectionModel().select(tableClients.getSelectionModel().getSelectedItem().getState());
     }
 
 }

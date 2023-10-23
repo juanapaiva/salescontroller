@@ -22,7 +22,7 @@ public class ClientsDAO {
     
     public void create(ClientsModel client) {
         try {
-            String sql = "INSERT INTO tb_clients (client_name, rg, cpf, email, phone, cellphone, cep, address, address_number, complement, neighborhood, city, state)" 
+            String sql = "INSERT INTO tb_clients (client_name, rg, cpf, email, phone, cellphone, cep, address, address_number, complement, neighborhood, city, state) " 
                         + "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
             PreparedStatement stmt = con.prepareStatement(sql);
 
@@ -85,8 +85,8 @@ public class ClientsDAO {
 
     public void updateAll(ClientsModel client) {
         try {
-            String sql = "UPDATE tb_clients" 
-                        + "SET client_name=?, rg=?, cpf=?, email=?, phone=?, cellphone=?, cep=?, address=?, address_number=?, complement=?, neighborhood=?, city=?, state=?" 
+            String sql = "UPDATE tb_clients " 
+                        + "SET client_name=?, rg=?, cpf=?, email=?, phone=?, cellphone=?, cep=?, address=?, address_number=?, complement=?, neighborhood=?, city=?, state=? " 
                         + "WHERE id = ?";
             PreparedStatement stmt = con.prepareStatement(sql);
 
