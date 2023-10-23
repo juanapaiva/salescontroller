@@ -146,7 +146,10 @@ public class ClientController implements Initializable {
         client.setCellphone(tbCellphone.getText().toUpperCase());
         client.setCep(tbCep.getText().toUpperCase());
         client.setAddress(tbAddress.getText().toUpperCase());
-        client.setAddressNumber(Integer.parseInt(tbAddressNumber.getText()));
+
+        Integer addressNumber = (tbAddressNumber.getText().isEmpty()) ? 0 : Integer.parseInt(tbAddressNumber.getText());
+        client.setAddressNumber(addressNumber);
+        
         client.setComplement(tbComplement.getText().toUpperCase());
         client.setNeighborhood(tbNeighborhood.getText().toUpperCase());
         client.setCity(tbCity.getText().toUpperCase());
