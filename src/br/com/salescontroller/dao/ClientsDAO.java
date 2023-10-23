@@ -45,7 +45,7 @@ public class ClientsDAO {
 
             JOptionPane.showMessageDialog(null, "Cliente cadastrado com sucesso!");
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Erro no cadastro: " + e);
+            JOptionPane.showMessageDialog(null, "Erro ao cadastrar cliente: " + e);
         }
     }
 
@@ -78,8 +78,56 @@ public class ClientsDAO {
 
             return clients;
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Erro na consulta: " + e);
+            JOptionPane.showMessageDialog(null, "Erro ao consultar cliente: " + e);
             return null;
+        }
+    }
+
+    public void updateAll(ClientsModel client) {
+        try {
+            String sql = "UPDATE tb_clients" 
+                        + "SET client_name=?, rg=?, cpf=?, email=?, phone=?, cellphone=?, cep=?, address=?, address_number=?, complement=?, neighborhood=?, city=?, state=?" 
+                        + "WHERE id = ?";
+            PreparedStatement stmt = con.prepareStatement(sql);
+
+            stmt.setString(1, client.getClientName());
+            stmt.setString(2, client.getRg());
+            stmt.setString(3, client.getCpf());
+            stmt.setString(4, client.getEmail());
+            stmt.setString(5, client.getPhone());
+            stmt.setString(6, client.getCellphone());
+            stmt.setString(7, client.getCep());
+            stmt.setString(8, client.getAddress());
+            stmt.setInt(9, client.getAddressNumber());
+            stmt.setString(10, client.getComplement());
+            stmt.setString(11, client.getNeighborhood());
+            stmt.setString(12, client.getCity());
+            stmt.setString(13, client.getState());
+
+            stmt.setInt(14, client.getId());
+
+            stmt.execute();
+            stmt.close();
+
+            JOptionPane.showMessageDialog(null, "Cliente alterado com sucesso!");
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro ao alterar cliente: " + e);
+        }
+    }
+
+    public void delete(ClientsModel client) {
+        try {
+            String sql = "DELETE FROM tb_clients WHERE id = ?";
+            PreparedStatement stmt = con.prepareStatement(sql);
+
+            stmt.setInt(1, client.getId());
+
+            stmt.execute();
+            stmt.close();
+
+            JOptionPane.showMessageDialog(null, "Cliente excluído com sucesso!");
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro ao excluir cliente: " + e);
         }
     }
 }
