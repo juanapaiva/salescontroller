@@ -197,7 +197,12 @@ public class ClientController implements Initializable {
 
     @FXML
     void btnDeleteAction(ActionEvent event) {
+        ClientsModel client = new ClientsModel();
 
+        client.setId(Integer.parseInt(tfId.getText()));
+
+        ClientsDAO dao = new ClientsDAO();
+        dao.delete(client);
     }
 
     @FXML
