@@ -83,6 +83,41 @@ public class ClientsDAO {
         }
     }
 
+    public ObservableList<ClientsModel> readByName(String clientName) {
+        try {
+            ObservableList<ClientsModel> clients = FXCollections.observableArrayList();
+            String sql = "SELECT * FROM tb_clients WHERE client_name LIKE ?";
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setString(1, clientName);
+            ResultSet rs = stmt.executeQuery();
+
+            while(rs.next()) {
+                ClientsModel client = new ClientsModel();
+                client.setId(rs.getInt("id"));
+                client.setClientName(rs.getString("client_name"));
+                client.setRg(rs.getString("rg"));
+                client.setCpf(rs.getString("cpf"));
+                client.setEmail(rs.getString("email"));
+                client.setPhone(rs.getString("phone"));
+                client.setCellphone(rs.getString("cellphone"));
+                client.setCep(rs.getString("cep"));
+                client.setAddress(rs.getString("address"));
+                client.setAddressNumber(rs.getInt("address_number"));
+                client.setComplement(rs.getString("complement"));
+                client.setNeighborhood(rs.getString("neighborhood"));
+                client.setCity(rs.getString("city"));
+                client.setState(rs.getString("state"));
+
+                clients.add(client);
+            }
+
+            return clients;
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro ao consultar cliente: " + e);
+            return null;
+        }
+    }
+
     public void updateAll(ClientsModel client) {
         try {
             String sql = "UPDATE tb_clients " 

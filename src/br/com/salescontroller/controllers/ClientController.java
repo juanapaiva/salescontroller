@@ -208,7 +208,9 @@ public class ClientController implements Initializable {
     @FXML
     void btnSearchAction(ActionEvent event) {
         ClientsDAO dao = new ClientsDAO();
-        ObservableList<ClientsModel> clients = dao.readAll();
+
+        // Select all if name is null
+        ObservableList<ClientsModel> clients = (tfNameSearch.getText().isEmpty()) ? dao.readAll() : dao.readByName(tfNameSearch.getText()+"%");
 
         tableCId.setCellValueFactory(new PropertyValueFactory<ClientsModel, Integer>("id"));
         tableCClientName.setCellValueFactory(new PropertyValueFactory<ClientsModel, String>("client_name"));
