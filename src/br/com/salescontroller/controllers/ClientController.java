@@ -5,6 +5,7 @@ import java.util.ResourceBundle;
 
 import br.com.salescontroller.dao.ClientsDAO;
 import br.com.salescontroller.models.ClientsModel;
+import br.com.salescontroller.models.Utils;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -20,6 +21,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 
 public class ClientController implements Initializable {
 
@@ -27,6 +29,9 @@ public class ClientController implements Initializable {
     private TabPane tabPaneClients;
 
     // Register tab attributes
+    @FXML
+    private AnchorPane paneClient;
+
     @FXML
     private TextField tfId;
     @FXML
@@ -61,13 +66,13 @@ public class ClientController implements Initializable {
 
     // Register tab buttons
     @FXML
-    private Button btnNew;
-    @FXML
     private Button btnSave;
     @FXML
     private Button btnEdit;
     @FXML
     private Button btnDelete;
+    @FXML
+    private Button btnClear;
 
     // Search tab attributes
     @FXML
@@ -137,11 +142,6 @@ public class ClientController implements Initializable {
             event.consume();
         }
     }*/
-
-    @FXML
-    void btnNewAction(ActionEvent event) {
-
-    }
 
     @FXML
     void btnSaveAction(ActionEvent event) {
@@ -228,6 +228,11 @@ public class ClientController implements Initializable {
         tableCState.setCellValueFactory(new PropertyValueFactory<ClientsModel, String>("state"));
 
         tableClients.setItems(clients);
+    }
+
+    @FXML
+    void btnClearAction(ActionEvent event) {
+        Utils.cleanFields(paneClient);
     }
 
     @FXML

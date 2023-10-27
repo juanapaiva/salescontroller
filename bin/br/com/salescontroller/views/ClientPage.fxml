@@ -62,7 +62,7 @@
               <tabs>
                 <Tab text="Dados pessoais">
                   <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="350.0" prefWidth="900.0">
+                    <AnchorPane fx:id="paneClient" minHeight="0.0" minWidth="0.0" prefHeight="350.0" prefWidth="900.0">
                            <children>
                               <Label layoutX="20.0" layoutY="55.0" text="Nome:">
                                  <font>
@@ -186,22 +186,22 @@
                 </Tab>
               </tabs>
             </TabPane>
-            <Button fx:id="btnNew" layoutX="194.0" layoutY="427.0" mnemonicParsing="false" onAction="#btnNewAction" prefHeight="45.0" prefWidth="115.0" text="+ Novo">
+            <Button fx:id="btnClear" layoutX="593.0" layoutY="427.0" mnemonicParsing="false" onAction="#btnClearAction" prefHeight="45.0" prefWidth="115.0" text="Limpar">
                <font>
                   <Font size="14.0" />
                </font>
             </Button>
-            <Button fx:id="btnDelete" layoutX="593.0" layoutY="427.0" mnemonicParsing="false" onAction="#btnDeleteAction" prefHeight="45.0" prefWidth="115.0" text="Excluir">
+            <Button fx:id="btnDelete" layoutX="461.0" layoutY="427.0" mnemonicParsing="false" onAction="#btnDeleteAction" prefHeight="45.0" prefWidth="115.0" text="Excluir">
                <font>
                   <Font size="14.0" />
                </font>
             </Button>
-            <Button fx:id="btnEdit" layoutX="461.0" layoutY="427.0" mnemonicParsing="false" onAction="#btnEditAction" prefHeight="45.0" prefWidth="115.0" text="Editar">
+            <Button fx:id="btnEdit" layoutX="326.0" layoutY="427.0" mnemonicParsing="false" onAction="#btnEditAction" prefHeight="45.0" prefWidth="115.0" text="Editar">
                <font>
                   <Font size="14.0" />
                </font>
             </Button>
-            <Button fx:id="btnSave" layoutX="326.0" layoutY="427.0" mnemonicParsing="false" onAction="#btnSaveAction" prefHeight="45.0" prefWidth="115.0" text="Salvar">
+            <Button fx:id="btnSave" layoutX="194.0" layoutY="427.0" mnemonicParsing="false" onAction="#btnSaveAction" prefHeight="45.0" prefWidth="115.0" text="Salvar">
                <font>
                   <Font size="14.0" />
                </font>
