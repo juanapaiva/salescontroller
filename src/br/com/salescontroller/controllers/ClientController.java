@@ -144,6 +144,43 @@ public class ClientController implements Initializable {
     }*/
 
     @FXML
+    void selectedRegisterAction(MouseEvent event) {
+        SingleSelectionModel<Tab> selectionModel = tabPaneClients.getSelectionModel();
+        selectionModel.select(0);
+
+        tfId.setText(tableClients.getSelectionModel().getSelectedItem().getId().toString());
+        tfName.setText(tableClients.getSelectionModel().getSelectedItem().getClientName());
+        tfRg.setText(tableClients.getSelectionModel().getSelectedItem().getRg());
+        tfCpf.setText(tableClients.getSelectionModel().getSelectedItem().getCpf());
+        tfEmail.setText(tableClients.getSelectionModel().getSelectedItem().getEmail());
+        tfPhone.setText(tableClients.getSelectionModel().getSelectedItem().getPhone());
+        tfCellphone.setText(tableClients.getSelectionModel().getSelectedItem().getCellphone());
+        tfCep.setText(tableClients.getSelectionModel().getSelectedItem().getCep());
+        tfAddress.setText(tableClients.getSelectionModel().getSelectedItem().getAddress());
+        tfAddressNumber.setText(tableClients.getSelectionModel().getSelectedItem().getAddressNumber().toString());
+        tfComplement.setText(tableClients.getSelectionModel().getSelectedItem().getComplement());
+        tfNeighborhood.setText(tableClients.getSelectionModel().getSelectedItem().getNeighborhood());
+        tfCity.setText(tableClients.getSelectionModel().getSelectedItem().getCity());
+        cbState.getSelectionModel().select(tableClients.getSelectionModel().getSelectedItem().getState());
+    }
+
+    @FXML
+    void cepKeyPressedAction(KeyEvent event) {
+        switch (event.getCode()) {
+            case ENTER:
+                ClientsModel client =  new ClientsModel();
+                ClientsDAO dao = new ClientsDAO();
+                client = dao.findCep(tfCep.getText());
+                
+                tfAddress.setText(client.getAddress());
+                tfNeighborhood.setText(client.getNeighborhood());
+                tfCity.setText(client.getCity());
+                cbState.setValue(client.getState());
+                break;
+        }
+    }
+
+    @FXML
     void btnSaveAction(ActionEvent event) {
         ClientsModel client = new ClientsModel();
 
@@ -234,26 +271,4 @@ public class ClientController implements Initializable {
     void btnClearAction(ActionEvent event) {
         Utils.cleanFields(paneClient);
     }
-
-    @FXML
-    void selectedRegisterAction(MouseEvent event) {
-        SingleSelectionModel<Tab> selectionModel = tabPaneClients.getSelectionModel();
-        selectionModel.select(0);
-
-        tfId.setText(tableClients.getSelectionModel().getSelectedItem().getId().toString());
-        tfName.setText(tableClients.getSelectionModel().getSelectedItem().getClientName());
-        tfRg.setText(tableClients.getSelectionModel().getSelectedItem().getRg());
-        tfCpf.setText(tableClients.getSelectionModel().getSelectedItem().getCpf());
-        tfEmail.setText(tableClients.getSelectionModel().getSelectedItem().getEmail());
-        tfPhone.setText(tableClients.getSelectionModel().getSelectedItem().getPhone());
-        tfCellphone.setText(tableClients.getSelectionModel().getSelectedItem().getCellphone());
-        tfCep.setText(tableClients.getSelectionModel().getSelectedItem().getCep());
-        tfAddress.setText(tableClients.getSelectionModel().getSelectedItem().getAddress());
-        tfAddressNumber.setText(tableClients.getSelectionModel().getSelectedItem().getAddressNumber().toString());
-        tfComplement.setText(tableClients.getSelectionModel().getSelectedItem().getComplement());
-        tfNeighborhood.setText(tableClients.getSelectionModel().getSelectedItem().getNeighborhood());
-        tfCity.setText(tableClients.getSelectionModel().getSelectedItem().getCity());
-        cbState.getSelectionModel().select(tableClients.getSelectionModel().getSelectedItem().getState());
-    }
-
 }

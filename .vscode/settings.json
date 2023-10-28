@@ -11,6 +11,7 @@
         "c:\\JavaLibs\\javafx-sdk-21.0.1\\lib\\javafx.swing.jar",
         "c:\\JavaLibs\\javafx-sdk-21.0.1\\lib\\javafx.web.jar",
         "c:\\JavaLibs\\javafx-sdk-21.0.1\\lib\\javafx-swt.jar",
-        "c:\\JavaLibs\\mysql-connector-j-8.1.0.jar"
+        "c:\\JavaLibs\\mysql-connector-j-8.1.0.jar",
+        "c:\\Cursos\\Controle_Vendas_Java_MySQL\\BuscaCep\\dom4j-1.6.1.jar"
     ]
 }

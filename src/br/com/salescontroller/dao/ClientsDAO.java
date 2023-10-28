@@ -9,6 +9,7 @@ import javax.swing.JOptionPane;
 
 import br.com.salescontroller.jdbc.ConnectionFactory;
 import br.com.salescontroller.models.ClientsModel;
+import br.com.salescontroller.services.WebServiceCep;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -164,5 +165,23 @@ public class ClientsDAO {
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Erro ao excluir cliente: " + e);
         }
+    }
+
+    public ClientsModel findCep(String cep) {
+        WebServiceCep webServiceCep = WebServiceCep.searchCep(cep);
+        ClientsModel client = new ClientsModel();
+
+        if (webServiceCep.wasSuccessful()) {
+            client.setAddress(webServiceCep.getLogradouroFull());
+            client.setCity(webServiceCep.getCidade());
+            client.setNeighborhood(webServiceCep.getBairro());
+            client.setState(webServiceCep.getUf());
+            return client;
+        } else {
+            JOptionPane.showMessageDialog(null, "CEP não encontrado");
+            //JOptionPane.showMessageDialog(null, "Descrição do erro: " + webServiceCep.getResultText());
+            return null;
+        }
+
     }
 }
