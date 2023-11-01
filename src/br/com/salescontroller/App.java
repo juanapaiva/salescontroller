@@ -12,10 +12,10 @@ public class App extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("views/ClientPage.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("views/EmployeePage.fxml"));
         Scene screen = new Scene(root);
 
-        primaryStage.setTitle("Cadastro de Clientes");
+        primaryStage.setTitle("Cadastro de Funcionários");
         primaryStage.setScene(screen);
         primaryStage.show();
     }

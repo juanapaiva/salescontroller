@@ -23,11 +23,11 @@ public class ClientsDAO {
     
     public void create(ClientsModel client) {
         try {
-            String sql = "INSERT INTO tb_clients (client_name, rg, cpf, email, phone, cellphone, cep, address, address_number, complement, neighborhood, city, state) " 
+            String sql = "INSERT INTO tb_clients (clientname, rg, cpf, email, phone, cellphone, cep, address, addressnumber, complement, neighborhood, city, state) " 
                         + "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
             PreparedStatement stmt = con.prepareStatement(sql);
 
-            stmt.setString(1, client.getClientName());
+            stmt.setString(1, client.getName());
             stmt.setString(2, client.getRg());
             stmt.setString(3, client.getCpf());
             stmt.setString(4, client.getEmail());
@@ -60,7 +60,7 @@ public class ClientsDAO {
             while(rs.next()) {
                 ClientsModel client = new ClientsModel();
                 client.setId(rs.getInt("id"));
-                client.setClientName(rs.getString("client_name"));
+                client.setName(rs.getString("clientname"));
                 client.setRg(rs.getString("rg"));
                 client.setCpf(rs.getString("cpf"));
                 client.setEmail(rs.getString("email"));
@@ -68,7 +68,7 @@ public class ClientsDAO {
                 client.setCellphone(rs.getString("cellphone"));
                 client.setCep(rs.getString("cep"));
                 client.setAddress(rs.getString("address"));
-                client.setAddressNumber(rs.getInt("address_number"));
+                client.setAddressNumber(rs.getInt("addressnumber"));
                 client.setComplement(rs.getString("complement"));
                 client.setNeighborhood(rs.getString("neighborhood"));
                 client.setCity(rs.getString("city"));
@@ -87,7 +87,7 @@ public class ClientsDAO {
     public ObservableList<ClientsModel> readByName(String clientName) {
         try {
             ObservableList<ClientsModel> clients = FXCollections.observableArrayList();
-            String sql = "SELECT * FROM tb_clients WHERE client_name LIKE ?";
+            String sql = "SELECT * FROM tb_clients WHERE clientname LIKE ?";
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setString(1, clientName);
             ResultSet rs = stmt.executeQuery();
@@ -95,7 +95,7 @@ public class ClientsDAO {
             while(rs.next()) {
                 ClientsModel client = new ClientsModel();
                 client.setId(rs.getInt("id"));
-                client.setClientName(rs.getString("client_name"));
+                client.setName(rs.getString("clientname"));
                 client.setRg(rs.getString("rg"));
                 client.setCpf(rs.getString("cpf"));
                 client.setEmail(rs.getString("email"));
@@ -103,7 +103,7 @@ public class ClientsDAO {
                 client.setCellphone(rs.getString("cellphone"));
                 client.setCep(rs.getString("cep"));
                 client.setAddress(rs.getString("address"));
-                client.setAddressNumber(rs.getInt("address_number"));
+                client.setAddressNumber(rs.getInt("addressnumber"));
                 client.setComplement(rs.getString("complement"));
                 client.setNeighborhood(rs.getString("neighborhood"));
                 client.setCity(rs.getString("city"));
@@ -122,11 +122,11 @@ public class ClientsDAO {
     public void updateAll(ClientsModel client) {
         try {
             String sql = "UPDATE tb_clients " 
-                        + "SET client_name=?, rg=?, cpf=?, email=?, phone=?, cellphone=?, cep=?, address=?, address_number=?, complement=?, neighborhood=?, city=?, state=? " 
+                        + "SET clientname=?, rg=?, cpf=?, email=?, phone=?, cellphone=?, cep=?, address=?, addressnumber=?, complement=?, neighborhood=?, city=?, state=? " 
                         + "WHERE id = ?";
             PreparedStatement stmt = con.prepareStatement(sql);
 
-            stmt.setString(1, client.getClientName());
+            stmt.setString(1, client.getName());
             stmt.setString(2, client.getRg());
             stmt.setString(3, client.getCpf());
             stmt.setString(4, client.getEmail());

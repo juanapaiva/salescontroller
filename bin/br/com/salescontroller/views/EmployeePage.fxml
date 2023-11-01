@@ -46,7 +46,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="500.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.salescontroller.controllers.ClientController">
+<VBox prefHeight="500.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.salescontroller.controllers.EmployeeController">
   <children>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="480.0" prefWidth="900.0" VBox.vgrow="ALWAYS">
          <children>
@@ -63,7 +63,7 @@
               <tabs>
                 <Tab text="Dados pessoais">
                   <content>
-                    <AnchorPane fx:id="paneClient" minHeight="0.0" minWidth="0.0" prefHeight="350.0" prefWidth="900.0">
+                    <AnchorPane fx:id="paneEmployee" minHeight="0.0" minWidth="0.0" prefHeight="350.0" prefWidth="900.0">
                            <children>
                               <Label layoutX="20.0" layoutY="55.0" text="Nome:">
                                  <font>
@@ -184,8 +184,8 @@
                               <Button fx:id="btnSearch" layoutX="608.0" layoutY="15.0" mnemonicParsing="false" onAction="#btnSearchAction" prefHeight="25.0" prefWidth="124.0" text="Pesquisar" />
                               <TableView fx:id="tableEmployees" layoutY="65.0" onMouseClicked="#selectedRegisterAction" prefHeight="245.0" prefWidth="900.0">
                                 <columns>
-                                  <TableColumn fx:id="tableCId" prefWidth="75.0" text="Código" />
-                                  <TableColumn fx:id="tableCEmployeeName" prefWidth="75.0" text="Nome" />
+                                    <TableColumn fx:id="tableCId" prefWidth="75.0" text="Código" />
+                                    <TableColumn fx:id="tableCEmployeename" prefWidth="75.0" text="Nome" />
                                     <TableColumn fx:id="tableCRg" prefWidth="75.0" text="RG" />
                                     <TableColumn fx:id="tableCCpf" prefWidth="75.0" text="CPF" />
                                     <TableColumn fx:id="tableCEmail" prefWidth="75.0" text="E-mail" />

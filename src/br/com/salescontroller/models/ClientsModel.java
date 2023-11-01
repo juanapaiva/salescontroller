@@ -3,7 +3,7 @@ package br.com.salescontroller.models;
 public class ClientsModel {
     
     private Integer id;
-    private String clientName;
+    private String name;
     private String rg;
     private String cpf;
     private String email;
@@ -25,12 +25,12 @@ public class ClientsModel {
         this.id = id;
     }
 
-    public String getClientName() {
-        return this.clientName;
+    public String getName() {
+        return this.name;
     }
 
-    public void setClientName(String clientName) {
-        this.clientName = clientName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getRg() {

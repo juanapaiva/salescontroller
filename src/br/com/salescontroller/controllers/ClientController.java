@@ -54,11 +54,8 @@ public class ClientController implements Initializable {
     private TextField tfCity;
     @FXML
     private TextField tfComplement;
-
     @FXML
     private ChoiceBox<String> cbState;
-    private String[] states = {"AC","AL","AP","AM","BA","CE","DF","ES","GO","MA","MT","MS","MG","PA","PB","PR","PE","PI","RJ","RN","RS","RO","RR","SC","SP","SE","TO"};
-
     @FXML
     private TextField tfRg;
     @FXML
@@ -80,6 +77,7 @@ public class ClientController implements Initializable {
 
     @FXML
     private TableView<ClientsModel> tableClients;
+
     @FXML
     private TableColumn<ClientsModel, Integer> tableCId;
     @FXML
@@ -116,11 +114,10 @@ public class ClientController implements Initializable {
     //
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        cbState.getItems().addAll(states);
+        cbState.getItems().addAll(Utils.states);
     }
 
     // View actions
-
     @FXML
     void checkNumberFormat(KeyEvent event) {
         if (event.getCharacter().matches("[^\\e\t\r\\d+$]")) {
@@ -149,7 +146,7 @@ public class ClientController implements Initializable {
         selectionModel.select(0);
 
         tfId.setText(tableClients.getSelectionModel().getSelectedItem().getId().toString());
-        tfName.setText(tableClients.getSelectionModel().getSelectedItem().getClientName());
+        tfName.setText(tableClients.getSelectionModel().getSelectedItem().getName());
         tfRg.setText(tableClients.getSelectionModel().getSelectedItem().getRg());
         tfCpf.setText(tableClients.getSelectionModel().getSelectedItem().getCpf());
         tfEmail.setText(tableClients.getSelectionModel().getSelectedItem().getEmail());
@@ -184,7 +181,7 @@ public class ClientController implements Initializable {
     void btnSaveAction(ActionEvent event) {
         ClientsModel client = new ClientsModel();
 
-        client.setClientName(tfName.getText().toUpperCase());
+        client.setName(tfName.getText().toUpperCase());
         client.setRg(tfRg.getText().toUpperCase());
         client.setCpf(tfCpf.getText().toUpperCase());
         client.setEmail(tfEmail.getText().toUpperCase());
@@ -209,7 +206,7 @@ public class ClientController implements Initializable {
     void btnEditAction(ActionEvent event) {
         ClientsModel client = new ClientsModel();
 
-        client.setClientName(tfName.getText().toUpperCase());
+        client.setName(tfName.getText().toUpperCase());
         client.setRg(tfRg.getText().toUpperCase());
         client.setCpf(tfCpf.getText().toUpperCase());
         client.setEmail(tfEmail.getText().toUpperCase());
@@ -250,7 +247,7 @@ public class ClientController implements Initializable {
         ObservableList<ClientsModel> clients = (tfNameSearch.getText().isEmpty()) ? dao.readAll() : dao.readByName(tfNameSearch.getText()+"%");
 
         tableCId.setCellValueFactory(new PropertyValueFactory<ClientsModel, Integer>("id"));
-        tableCClientName.setCellValueFactory(new PropertyValueFactory<ClientsModel, String>("client_name"));
+        tableCClientName.setCellValueFactory(new PropertyValueFactory<ClientsModel, String>("clientname"));
         tableCRg.setCellValueFactory(new PropertyValueFactory<ClientsModel, String>("rg"));
         tableCCpf.setCellValueFactory(new PropertyValueFactory<ClientsModel, String>("cpf"));
         tableCEmail.setCellValueFactory(new PropertyValueFactory<ClientsModel, String>("email"));
@@ -258,7 +255,7 @@ public class ClientController implements Initializable {
         tableCCellphone.setCellValueFactory(new PropertyValueFactory<ClientsModel, String>("cellphone"));
         tableCCep.setCellValueFactory(new PropertyValueFactory<ClientsModel, String>("cep"));
         tableCAddress.setCellValueFactory(new PropertyValueFactory<ClientsModel, String>("address"));
-        tableCAddressNumber.setCellValueFactory(new PropertyValueFactory<ClientsModel, Integer>("address_number"));
+        tableCAddressNumber.setCellValueFactory(new PropertyValueFactory<ClientsModel, Integer>("addressnumber"));
         tableCComplement.setCellValueFactory(new PropertyValueFactory<ClientsModel, String>("complement"));
         tableCNeighborhood.setCellValueFactory(new PropertyValueFactory<ClientsModel, String>("neighborhood"));
         tableCCity.setCellValueFactory(new PropertyValueFactory<ClientsModel, String>("city"));
