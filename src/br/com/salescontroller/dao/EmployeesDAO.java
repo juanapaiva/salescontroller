@@ -193,6 +193,26 @@ public class EmployeesDAO {
             JOptionPane.showMessageDialog(null, "CEP não encontrado");
             return null;
         }
+    }
 
+    public void login(String email, String passcode) {
+        try {
+            String sql = "SELECT * FROM tb_employees WHERE email = ? AND passcode = ?";
+            PreparedStatement stmt = con.prepareStatement(sql);
+
+            stmt.setString(1, email);
+            stmt.setString(2, passcode);
+
+            ResultSet rs = stmt.executeQuery();
+
+            // if login is corret
+            if (rs.next()) {
+                JOptionPane.showMessageDialog(null, "Bem vindo(a)!");
+            } else {
+                JOptionPane.showMessageDialog(null, "Dados incorretos");
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro no login: " + e);
+        }
     }
 }

@@ -11,12 +11,12 @@ public class App extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("views/LoginPage.fxml"));
         Scene screen = new Scene(root);
 
-        primaryStage.setTitle("Autenticação de Usuário");
-        primaryStage.setScene(screen);
-        primaryStage.show();
+        stage.setTitle("Autenticação de Usuário");
+        stage.setScene(screen);
+        stage.show();
     }
 }
