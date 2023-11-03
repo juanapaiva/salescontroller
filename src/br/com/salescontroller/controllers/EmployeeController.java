@@ -99,6 +99,7 @@ public class EmployeeController implements Initializable {
     private TableColumn<EmployeesModel, String> tableCPosition;
     @FXML
     private TableColumn<EmployeesModel, String> tableCAccessLevel;
+    private String[] accessLevels = {"Usuário", "Administrador"};
     @FXML
     private TableColumn<EmployeesModel, String> tableCPhone;
     @FXML
@@ -126,6 +127,7 @@ public class EmployeeController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         cbState.getItems().addAll(Utils.states);
+        cbAccessLevel.getItems().addAll(accessLevels);
     }
 
     // View actions
