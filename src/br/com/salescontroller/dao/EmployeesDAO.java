@@ -195,7 +195,7 @@ public class EmployeesDAO {
         }
     }
 
-    public void login(String email, String passcode) {
+    public Boolean login(String email, String passcode) {
         try {
             String sql = "SELECT * FROM tb_employees WHERE email = ? AND passcode = ?";
             PreparedStatement stmt = con.prepareStatement(sql);
@@ -208,11 +208,14 @@ public class EmployeesDAO {
             // if login is corret
             if (rs.next()) {
                 JOptionPane.showMessageDialog(null, "Bem vindo(a)!");
+                return true;
             } else {
                 JOptionPane.showMessageDialog(null, "Dados incorretos");
+                return false;
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Erro no login: " + e);
+            return false;
         }
     }
 }

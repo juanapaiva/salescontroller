@@ -1,5 +1,6 @@
 package br.com.salescontroller.controllers;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -9,7 +10,11 @@ import br.com.salescontroller.models.Utils;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.SingleSelectionModel;
@@ -22,11 +27,19 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
 public class ClientController implements Initializable {
 
+    private Stage stage;
+    private Scene scene;
+    private Parent root;
+
     @FXML
     private TabPane tabPaneClients;
+
+    @FXML
+    private Button btnMenu;
 
     // Register tab attributes
     @FXML
@@ -140,6 +153,17 @@ public class ClientController implements Initializable {
         }
     }*/
 
+    @FXML
+    void btnMenuAction(ActionEvent event) throws IOException {
+        root = FXMLLoader.load(getClass().getResource("../views/MenuPage.fxml"));
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+
+        stage.setTitle("Menu");
+        stage.setScene(scene);
+        stage.show();
+    }
+    
     @FXML
     void selectedRegisterAction(MouseEvent event) {
         SingleSelectionModel<Tab> selectionModel = tabPaneClients.getSelectionModel();

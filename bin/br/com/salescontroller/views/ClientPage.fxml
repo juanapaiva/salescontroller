@@ -56,6 +56,11 @@
                         <Font size="24.0" />
                      </font>
                   </Label>
+                  <Button fx:id="btnMenu" layoutX="816.0" layoutY="20.0" mnemonicParsing="false" onAction="#btnMenuAction" prefHeight="30.0" prefWidth="70.0" text="Voltar">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
                </children>
             </Pane>
             <TabPane fx:id="tabPaneClients" layoutY="71.0" maxHeight="330.0" prefHeight="330.0" prefWidth="900.0" tabClosingPolicy="UNAVAILABLE">
