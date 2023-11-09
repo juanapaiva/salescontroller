@@ -5,10 +5,10 @@ import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
 import javafx.stage.Stage;
 
 public class MenuController {
@@ -18,18 +18,21 @@ public class MenuController {
     private Parent root;
 
     @FXML
-    private Button btnClientsPage;
+    private MenuBar menuBar;
 
     @FXML
-    private Button btnEmployeesPage;
+    private MenuItem menuIClientsControl;
 
     @FXML
-    private Button btnLogout;
+    private MenuItem menuIEmployeesControl;
 
     @FXML
-    void btnClientsPageAction(ActionEvent event) throws IOException {
+    private MenuItem menuILogout;
+
+    @FXML
+    void menuIClientsControlAction(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("../views/ClientPage.fxml"));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        stage = (Stage)menuBar.getScene().getWindow();
         scene = new Scene(root);
 
         stage.setTitle("Tela de Clientes");
@@ -38,9 +41,9 @@ public class MenuController {
     }
 
     @FXML
-    void btnEmployeesPageAction(ActionEvent event) throws IOException {
+    void menuIEmployeesControlAction(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("../views/EmployeePage.fxml"));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        stage = (Stage)menuBar.getScene().getWindow();
         scene = new Scene(root);
 
         stage.setTitle("Tela de Funcionários");
@@ -49,9 +52,9 @@ public class MenuController {
     }
 
     @FXML
-    void btnLogoutAction(ActionEvent event) throws IOException {
+    void menuILogoutAction(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("../views/LoginPage.fxml"));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        stage = (Stage)menuBar.getScene().getWindow();
         scene = new Scene(root);
 
         stage.setTitle("Autenticação de Usuário");
