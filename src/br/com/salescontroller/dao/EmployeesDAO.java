@@ -7,6 +7,7 @@ import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
 
+import br.com.salescontroller.controllers.MenuController;
 import br.com.salescontroller.jdbc.ConnectionFactory;
 import br.com.salescontroller.models.EmployeesModel;
 import br.com.salescontroller.services.WebServiceCep;
@@ -208,6 +209,7 @@ public class EmployeesDAO {
             // if login is corret
             if (rs.next()) {
                 JOptionPane.showMessageDialog(null, "Bem vindo(a)!");
+                MenuController.currentUser = rs.getString("employeename");
                 return true;
             } else {
                 JOptionPane.showMessageDialog(null, "Dados incorretos");

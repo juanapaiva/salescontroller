@@ -44,9 +44,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="420.0" maxWidth="587.0" prefHeight="420.0" prefWidth="587.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.salescontroller.controllers.MenuController">
+<VBox maxHeight="445.0" maxWidth="587.0" prefHeight="445.0" prefWidth="587.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.salescontroller.controllers.MenuController">
   <children>
-    <AnchorPane maxHeight="420.0" maxWidth="587.0" prefHeight="420.0" prefWidth="587.0" VBox.vgrow="ALWAYS">
+    <AnchorPane maxHeight="445.0" maxWidth="587.0" prefHeight="445.0" prefWidth="587.0" VBox.vgrow="ALWAYS">
          <children>
             <Pane prefHeight="70.0" prefWidth="587.0" style="-fx-background-color: #6495ED;">
                <children>
@@ -107,6 +107,20 @@
                   <Rectangle2D />
                </viewport>
             </ImageView>
+            <Pane layoutY="425.0" prefHeight="25.0" prefWidth="587.0">
+               <children>
+                  <Label layoutX="15.0" layoutY="4.0" text="Usuário:">
+                     <font>
+                        <Font size="11.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lCurrentUser" layoutX="60.0" layoutY="4.0" textFill="#1c97ff">
+                     <font>
+                        <Font name="System Bold" size="11.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
          </children>
     </AnchorPane>
   </children>

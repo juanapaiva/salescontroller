@@ -1,22 +1,30 @@
 package br.com.salescontroller.controllers;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
+import br.com.salescontroller.models.Utils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.stage.Stage;
 
-public class MenuController {
+public class MenuController implements Initializable {
 
     // Screen navigation properties
     private Stage stage;
     private Scene scene;
     private Parent root;
+
+    //
+    public static String currentUser;
 
     // Screen items
     @FXML
@@ -31,7 +39,16 @@ public class MenuController {
     @FXML
     private MenuItem menuILogout;
 
+    @FXML
+    private Label lCurrentUser;
+
     // Screen actions
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        lCurrentUser.setText(currentUser);
+    }
+
+    //
     @FXML
     void menuIClientsControlAction(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("../views/ClientPage.fxml"));
