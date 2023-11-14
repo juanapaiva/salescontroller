@@ -13,10 +13,12 @@ import javafx.stage.Stage;
 
 public class MenuController {
 
+    // Screen navigation properties
     private Stage stage;
     private Scene scene;
     private Parent root;
 
+    // Screen items
     @FXML
     private MenuBar menuBar;
 
@@ -29,6 +31,7 @@ public class MenuController {
     @FXML
     private MenuItem menuILogout;
 
+    // Screen actions
     @FXML
     void menuIClientsControlAction(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("../views/ClientPage.fxml"));
