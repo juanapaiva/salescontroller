@@ -37,6 +37,9 @@ public class MenuController implements Initializable {
     private MenuItem menuIEmployeesControl;
 
     @FXML
+    private MenuItem menuISuppliersControl;
+
+    @FXML
     private MenuItem menuILogout;
 
     @FXML
@@ -67,6 +70,17 @@ public class MenuController implements Initializable {
         scene = new Scene(root);
 
         stage.setTitle("Tela de Funcionários");
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    @FXML
+    void menuISuppliersControlAction(ActionEvent event) throws IOException {
+        root = FXMLLoader.load(getClass().getResource("../views/SupplierPage.fxml"));
+        stage = (Stage)menuBar.getScene().getWindow();
+        scene = new Scene(root);
+
+        stage.setTitle("Tela de Fornecedores");
         stage.setScene(scene);
         stage.show();
     }
