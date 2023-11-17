@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import br.com.salescontroller.models.Utils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -38,6 +37,9 @@ public class MenuController implements Initializable {
 
     @FXML
     private MenuItem menuISuppliersControl;
+
+    @FXML
+    private MenuItem menuIProductsControl;
 
     @FXML
     private MenuItem menuILogout;
@@ -81,6 +83,17 @@ public class MenuController implements Initializable {
         scene = new Scene(root);
 
         stage.setTitle("Tela de Fornecedores");
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    @FXML
+    void menuIProductsControlAction(ActionEvent event) throws IOException {
+        root = FXMLLoader.load(getClass().getResource("../views/ProductPage.fxml"));
+        stage = (Stage)menuBar.getScene().getWindow();
+        scene = new Scene(root);
+
+        stage.setTitle("Tela de Produtos");
         stage.setScene(scene);
         stage.show();
     }

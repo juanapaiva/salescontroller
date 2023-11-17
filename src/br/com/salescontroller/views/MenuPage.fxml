@@ -77,7 +77,7 @@
                   <Menu mnemonicParsing="false" text="Produtos">
                      <items>
                         <MenuItem mnemonicParsing="false" text="Controle de Estoque" />
-                        <MenuItem mnemonicParsing="false" text="Consulta de Produtos" />
+                        <MenuItem fx:id="menuIProductsControl" mnemonicParsing="false" onAction="#menuIProductsControlAction" text="Consulta de Produtos" />
                      </items>
                   </Menu>
                   <Menu mnemonicParsing="false" text="Vendas">
