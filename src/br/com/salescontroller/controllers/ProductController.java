@@ -6,7 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import br.com.salescontroller.dao.ProductsDAO;
 import br.com.salescontroller.dao.SuppliersDAO;
+import br.com.salescontroller.models.ProductModel;
 import br.com.salescontroller.models.SuppliersModel;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -56,7 +58,7 @@ public class ProductController implements Initializable {
     private ChoiceBox<SuppliersModel> cbSupplier;
 
     @FXML
-    private ChoiceBox<?> cbSupplierSearch;
+    private ChoiceBox<SuppliersModel> cbSupplierSearch;
 
     @FXML
     private AnchorPane paneProduct;
@@ -104,8 +106,10 @@ public class ProductController implements Initializable {
         ObservableList<SuppliersModel> suppliers = daoSupplier.readAll();
 
         cbSupplier.getItems().removeAll();
+        cbSupplierSearch.getItems().removeAll();
         for (SuppliersModel supplier : suppliers) {
             cbSupplier.getItems().add(supplier);
+            cbSupplierSearch.getItems().add(supplier);
         }
     }
 
@@ -137,7 +141,17 @@ public class ProductController implements Initializable {
 
     @FXML
     void btnSaveAction(ActionEvent event) {
+        ProductModel product = new ProductModel();
 
+        product.setProductDescription(txtDescription.getText().toUpperCase());
+        Float price = (tfPrice.getText().isEmpty()) ? 0 : Float.parseFloat(tfPrice.getText());
+        product.setPrice(price);
+        Integer stock = (tfStock.getText().isEmpty()) ? 0 : Integer.parseInt(tfStock.getText());
+        product.setStock(stock);
+        product.setSupplier(cbSupplier.getValue());
+
+        ProductsDAO dao = new ProductsDAO();
+        dao.create(product);
     }
 
     @FXML
