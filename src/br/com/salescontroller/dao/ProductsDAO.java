@@ -9,7 +9,7 @@ import javax.swing.JOptionPane;
 
 import br.com.salescontroller.jdbc.ConnectionFactory;
 import br.com.salescontroller.models.ProductModel;
-import br.com.salescontroller.services.WebServiceCep;
+import br.com.salescontroller.models.SuppliersModel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -41,5 +41,76 @@ public class ProductsDAO {
         }
     }
 
-    
+    public ObservableList<ProductModel> readAll() {
+        try {
+            ObservableList<ProductModel> products = FXCollections.observableArrayList();
+            String sql = "SELECT p.id, p.productdescription, p.price, p.stock, s.suppliername FROM tb_products p "
+                        + "INNER JOIN tb_suppliers s ON (p.supplierid = s.id)";
+            PreparedStatement stmt = con.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+
+            while(rs.next()) {
+                ProductModel product = new ProductModel();
+                SuppliersModel supplier = new SuppliersModel();
+
+                product.setId(rs.getInt("p.id"));
+                product.setProductDescription(rs.getString("p.productdescription"));
+                product.setPrice(rs.getFloat("p.price"));
+                product.setStock(rs.getInt("p.stock"));
+
+                supplier.setName(rs.getString("s.suppliername"));
+                product.setSupplier(supplier);
+
+                products.add(product);
+            }
+
+            return products;
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro ao consultar produto: " + e);
+            return null;
+        }
+    }
+
+    public ObservableList<ProductModel> readByProductDescription(String productDescription, SuppliersModel supplierObj) {
+        try {
+            ObservableList<ProductModel> products = FXCollections.observableArrayList();
+            String sql = "SELECT p.id, p.productdescription, p.price, p.stock, s.suppliername FROM tb_products p "
+                        + "INNER JOIN tb_suppliers s ON (p.supplierid = s.id) "
+                        + "WHERE p.productdescription LIKE coalesce(?, p.productdescription) "
+                        + "AND s.suppliername = coalesce(?, s.suppliername)";
+            PreparedStatement stmt = con.prepareStatement(sql);
+
+            if (productDescription.isEmpty())
+                stmt.setNull(1, 0);
+            else
+                stmt.setString(1, "%"+productDescription+"%");
+
+            if (supplierObj == null)
+                stmt.setNull(2, 0);
+            else
+                stmt.setString(2, supplierObj.getName());
+
+            ResultSet rs = stmt.executeQuery();
+
+            while(rs.next()) {
+                ProductModel product = new ProductModel();
+                SuppliersModel supplier = new SuppliersModel();
+
+                product.setId(rs.getInt("p.id"));
+                product.setProductDescription(rs.getString("p.productdescription"));
+                product.setPrice(rs.getFloat("p.price"));
+                product.setStock(rs.getInt("p.stock"));
+
+                supplier.setName(rs.getString("s.suppliername"));
+                product.setSupplier(supplier);
+
+                products.add(product);
+            }
+
+            return products;
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro ao consultar produto: " + e);
+            return null;
+        }
+    }
 }

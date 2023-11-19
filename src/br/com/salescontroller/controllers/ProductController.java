@@ -2,8 +2,6 @@ package br.com.salescontroller.controllers;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 
 import br.com.salescontroller.dao.ProductsDAO;
@@ -25,6 +23,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -67,22 +66,22 @@ public class ProductController implements Initializable {
     private TabPane tabPaneProducts;
 
     @FXML
-    private TableColumn<?, ?> tableCDescription;
+    private TableColumn<ProductModel, String> tableCDescription;
 
     @FXML
-    private TableColumn<?, ?> tableCId;
+    private TableColumn<ProductModel, Integer> tableCId;
 
     @FXML
-    private TableColumn<?, ?> tableCPrice;
+    private TableColumn<ProductModel, Float> tableCPrice;
 
     @FXML
-    private TableColumn<?, ?> tableCStock;
+    private TableColumn<ProductModel, Integer> tableCStock;
 
     @FXML
-    private TableColumn<?, ?> tableCSupplier;
+    private TableColumn<ProductModel, Integer> tableCSupplier;
 
     @FXML
-    private TableView<?> tableProducts;
+    private TableView<ProductModel> tableProducts;
 
     @FXML
     private TextField tfDescriptionSearch;
@@ -156,7 +155,20 @@ public class ProductController implements Initializable {
 
     @FXML
     void btnSearchAction(ActionEvent event) {
+        ProductsDAO dao = new ProductsDAO();
+        
+        // Select all if product and supplier are null
+        ObservableList<ProductModel> products = (tfDescriptionSearch.getText().isEmpty() && cbSupplierSearch.getValue() == null) 
+                                                    ? dao.readAll() 
+                                                    : dao.readByProductDescription(tfDescriptionSearch.getText(), cbSupplierSearch.getValue());
 
+        tableCId.setCellValueFactory(new PropertyValueFactory<ProductModel, Integer>("id"));
+        tableCDescription.setCellValueFactory(new PropertyValueFactory<ProductModel, String>("productdescription"));
+        tableCPrice.setCellValueFactory(new PropertyValueFactory<ProductModel, Float>("price"));
+        tableCStock.setCellValueFactory(new PropertyValueFactory<ProductModel, Integer>("stock"));
+        tableCSupplier.setCellValueFactory(new PropertyValueFactory<ProductModel, Integer>("supplierid"));
+
+        tableProducts.setItems(products);
     }
 
     @FXML
