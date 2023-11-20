@@ -113,4 +113,44 @@ public class ProductsDAO {
             return null;
         }
     }
+
+    public void updateAll(ProductModel product) {
+        try {
+            String sql = "UPDATE tb_products " 
+                        + "SET productdescription=?, price=?, stock=?, supplierid=? " 
+                        + "WHERE id = ?";
+            PreparedStatement stmt = con.prepareStatement(sql);
+
+            stmt.setString(1, product.getProductDescription());
+            stmt.setFloat(2, product.getPrice());
+            stmt.setInt(3, product.getStock());
+            stmt.setInt(4, product.getSupplier().getId());
+
+            stmt.setInt(5, product.getId());
+
+            stmt.execute();
+            stmt.close();
+
+            JOptionPane.showMessageDialog(null, "Produto alterado com sucesso!");
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro ao alterar produto: " + e);
+        }
+    }
+
+    public void delete(ProductModel product) {
+        try {
+            String sql = "DELETE FROM tb_products WHERE id = ?";
+            PreparedStatement stmt = con.prepareStatement(sql);
+
+            stmt.setInt(1, product.getId());
+
+            stmt.execute();
+            stmt.close();
+
+            JOptionPane.showMessageDialog(null, "Produto excluído com sucesso!");
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro ao excluir produto: " + e);
+        }
+    }
+
 }

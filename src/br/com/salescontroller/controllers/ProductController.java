@@ -8,6 +8,7 @@ import br.com.salescontroller.dao.ProductsDAO;
 import br.com.salescontroller.dao.SuppliersDAO;
 import br.com.salescontroller.models.ProductModel;
 import br.com.salescontroller.models.SuppliersModel;
+import br.com.salescontroller.models.Utils;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -18,6 +19,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.SingleSelectionModel;
+import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -114,17 +117,32 @@ public class ProductController implements Initializable {
 
     @FXML
     void btnClearAction(ActionEvent event) {
-
-    }
-
-    @FXML
-    void btnDeleteAction(ActionEvent event) {
-
+        Utils.cleanFields(paneProduct);
     }
 
     @FXML
     void btnEditAction(ActionEvent event) {
+        ProductModel product = new ProductModel();
 
+        product.setProductDescription(txtDescription.getText().toUpperCase());
+        product.setPrice(tfPrice.getText().isEmpty() ? 0f : Float.parseFloat(tfPrice.getText()));
+        product.setStock(tfStock.getText().isEmpty() ? 0 : Integer.parseInt(tfStock.getText()));
+        product.setSupplier(cbSupplier.getValue());
+
+        product.setId(Integer.parseInt(tfId.getText()));
+
+        ProductsDAO dao = new ProductsDAO();
+        dao.updateAll(product);
+    }
+
+    @FXML
+    void btnDeleteAction(ActionEvent event) {
+        ProductModel product = new ProductModel();
+
+        product.setId(Integer.parseInt(tfId.getText()));
+
+        ProductsDAO dao = new ProductsDAO();
+        dao.delete(product);
     }
 
     @FXML
@@ -172,13 +190,22 @@ public class ProductController implements Initializable {
     }
 
     @FXML
-    void checkNumberFormat(KeyEvent event) {
+    void selectedRegisterAction(MouseEvent event) {
+        SingleSelectionModel<Tab> selectionModel = tabPaneProducts.getSelectionModel();
+        selectionModel.select(0);
 
+        tfId.setText(tableProducts.getSelectionModel().getSelectedItem().getId().toString());
+        txtDescription.setText(tableProducts.getSelectionModel().getSelectedItem().getProductDescription());
+        tfPrice.setText(tableProducts.getSelectionModel().getSelectedItem().getPrice().toString());
+        tfStock.setText(tableProducts.getSelectionModel().getSelectedItem().getStock().toString());
+        cbSupplier.getSelectionModel().select(tableProducts.getSelectionModel().getSelectedItem().getSupplier());
     }
 
     @FXML
-    void selectedRegisterAction(MouseEvent event) {
-
+    void checkNumberFormat(KeyEvent event) {
+        if (event.getCharacter().matches("[^\\e\t\r\\d+$]")) {
+            event.consume();
+        }
     }
 
 }

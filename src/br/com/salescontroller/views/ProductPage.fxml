@@ -75,7 +75,7 @@
                                     <Font size="14.0" />
                                  </font>
                               </Label>
-                              <TextField fx:id="tfId" disable="true" layoutX="90.0" layoutY="15.0" onKeyTyped="#checkNumberFormat" prefHeight="25.0" prefWidth="70.0" />
+                              <TextField fx:id="tfId" disable="true" layoutX="90.0" layoutY="15.0" prefHeight="25.0" prefWidth="70.0" />
                               <Label layoutX="20.0" layoutY="90.0" text="Descrição:">
                                  <font>
                                     <Font size="14.0" />
