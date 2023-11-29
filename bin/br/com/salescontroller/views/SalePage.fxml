@@ -69,11 +69,11 @@
             <Pane layoutX="14.0" layoutY="97.0" prefHeight="87.0" prefWidth="391.0" style="-fx-background-color: #DCDCDC;">
                <children>
                   <Label layoutX="10.0" layoutY="14.0" text="CPF.....:" />
-                  <TextField fx:id="tfClientCpf" layoutX="50.0" layoutY="10.0" prefHeight="25.0" prefWidth="109.0" promptText="Ex.: 11122233344" />
+                  <TextField fx:id="tfClientCpf" layoutX="50.0" layoutY="10.0" onKeyPressed="#cpfEnterAction" onKeyTyped="#checkNumberFormat" prefHeight="25.0" prefWidth="109.0" promptText="Ex.: 11122233344" />
                   <Label layoutX="10.0" layoutY="54.0" text="Nome:" />
-                  <TextField fx:id="tfClientName" layoutX="50.0" layoutY="50.0" prefHeight="25.0" prefWidth="197.0" />
+                  <TextField fx:id="tfClientName" disable="true" layoutX="50.0" layoutY="50.0" prefHeight="25.0" prefWidth="197.0" />
                   <Label layoutX="170.0" layoutY="14.0" text="Data da venda:" />
-                  <DatePicker fx:id="tfSaleDate" layoutX="255.0" layoutY="10.0" prefHeight="25.0" prefWidth="125.0" />
+                  <DatePicker fx:id="tfSaleDate" disable="true" editable="false" layoutX="255.0" layoutY="10.0" prefHeight="25.0" prefWidth="125.0" />
                   <Button fx:id="btnSearchClient" layoutX="255.0" layoutY="50.0" mnemonicParsing="false" onAction="#btnSearchClientAction" prefHeight="25.0" prefWidth="125.0" text="Pesquisar" />
                </children>
             </Pane>

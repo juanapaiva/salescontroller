@@ -84,12 +84,47 @@ public class ClientsDAO {
         }
     }
 
-    public ObservableList<ClientsModel> readByName(String clientName) {
+    public ObservableList<ClientsModel> readByName(String name) {
         try {
             ObservableList<ClientsModel> clients = FXCollections.observableArrayList();
             String sql = "SELECT * FROM tb_clients WHERE clientname LIKE ?";
             PreparedStatement stmt = con.prepareStatement(sql);
-            stmt.setString(1, clientName);
+            stmt.setString(1, name);
+            ResultSet rs = stmt.executeQuery();
+
+            while(rs.next()) {
+                ClientsModel client = new ClientsModel();
+                client.setId(rs.getInt("id"));
+                client.setName(rs.getString("clientname"));
+                client.setRg(rs.getString("rg"));
+                client.setCpf(rs.getString("cpf"));
+                client.setEmail(rs.getString("email"));
+                client.setPhone(rs.getString("phone"));
+                client.setCellphone(rs.getString("cellphone"));
+                client.setCep(rs.getString("cep"));
+                client.setAddress(rs.getString("address"));
+                client.setAddressNumber(rs.getInt("addressnumber"));
+                client.setComplement(rs.getString("complement"));
+                client.setNeighborhood(rs.getString("neighborhood"));
+                client.setCity(rs.getString("city"));
+                client.setState(rs.getString("state"));
+
+                clients.add(client);
+            }
+
+            return clients;
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro ao consultar cliente: " + e);
+            return null;
+        }
+    }
+
+    public ObservableList<ClientsModel> readByCpf(String cpf) {
+        try {
+            ObservableList<ClientsModel> clients = FXCollections.observableArrayList();
+            String sql = "SELECT * FROM tb_clients WHERE cpf = ?";
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setString(1, cpf);
             ResultSet rs = stmt.executeQuery();
 
             while(rs.next()) {
