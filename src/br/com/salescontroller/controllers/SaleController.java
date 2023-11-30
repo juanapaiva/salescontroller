@@ -16,10 +16,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Spinner;
+import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -78,7 +79,9 @@ public class SaleController implements Initializable {
     private TextField tfProductPrice;
 
     @FXML
-    private TextField tfProductQuantity;
+    private Spinner<Integer> tfProductQuantity;
+
+    private SpinnerValueFactory<Integer> valueFactory;
 
     @FXML
     private DatePicker tfSaleDate;
@@ -101,7 +104,7 @@ public class SaleController implements Initializable {
 
     @FXML
     void btnAddItemAction(ActionEvent event) {
-
+        
     }
 
     @FXML
@@ -153,6 +156,9 @@ public class SaleController implements Initializable {
             try {
                 tfProductDescription.setText(products.get(0).getProductDescription());
                 tfProductPrice.setText(products.get(0).getPrice().toString());
+
+                valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, products.get(0).getStock());
+                tfProductQuantity.setValueFactory(valueFactory);
             } catch (IndexOutOfBoundsException e) {
                 JOptionPane.showMessageDialog(null, "Produto não encontrado.");
             }
