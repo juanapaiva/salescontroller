@@ -74,7 +74,7 @@
                   <TextField fx:id="tfClientName" disable="true" layoutX="50.0" layoutY="50.0" prefHeight="25.0" prefWidth="197.0" />
                   <Label layoutX="170.0" layoutY="14.0" text="Data da venda:" />
                   <DatePicker fx:id="tfSaleDate" disable="true" editable="false" layoutX="255.0" layoutY="10.0" prefHeight="25.0" prefWidth="125.0" />
-                  <Button fx:id="btnSearchClient" layoutX="255.0" layoutY="50.0" mnemonicParsing="false" onAction="#btnSearchClientAction" prefHeight="25.0" prefWidth="125.0" text="Pesquisar" />
+                  <Button fx:id="btnSearchClient" layoutX="255.0" layoutY="50.0" mnemonicParsing="false" onAction="#btnSearchClientAction" onKeyPressed="#cpfEnterAction" prefHeight="25.0" prefWidth="125.0" text="Pesquisar" />
                </children>
             </Pane>
             <Label layoutX="14.0" layoutY="195.0" text="Dados do Produto">
@@ -85,14 +85,14 @@
             <Pane layoutX="14.0" layoutY="215.0" prefHeight="184.0" prefWidth="391.0" style="-fx-background-color: #DCDCDC;">
                <children>
                   <Label layoutX="10.0" layoutY="14.0" text="Código..........:" />
-                  <TextField fx:id="tfProductId" layoutX="80.0" layoutY="10.0" prefHeight="25.0" prefWidth="80.0" />
+                  <TextField fx:id="tfProductId" layoutX="80.0" layoutY="10.0" onKeyPressed="#productIdEnterAction" prefHeight="25.0" prefWidth="165.0" />
                   <Label layoutX="10.0" layoutY="54.0" text="Produto........:" />
-                  <TextField fx:id="tfProductDescription" layoutX="80.0" layoutY="50.0" prefHeight="25.0" prefWidth="300.0" />
+                  <TextField fx:id="tfProductDescription" disable="true" layoutX="80.0" layoutY="50.0" prefHeight="25.0" prefWidth="300.0" />
                   <Label layoutX="10.0" layoutY="94.0" text="Quantidade:" />
                   <TextField fx:id="tfProductQuantity" layoutX="80.0" layoutY="90.0" prefHeight="25.0" prefWidth="100.0" />
                   <Label layoutX="190.0" layoutY="94.0" text="Preço unitário:" />
                   <TextField fx:id="tfProductPrice" disable="true" layoutX="275.0" layoutY="90.0" prefHeight="25.0" prefWidth="105.0" />
-                  <Button fx:id="btnSearchProduct" layoutX="255.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnSearchProductAction" prefHeight="25.0" prefWidth="125.0" text="Pesquisar" />
+                  <Button fx:id="btnSearchProduct" layoutX="255.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnSearchProductAction" onKeyPressed="#productIdEnterAction" prefHeight="25.0" prefWidth="125.0" text="Pesquisar" />
                   <Button fx:id="btnAddItem" layoutX="129.0" layoutY="130.0" mnemonicParsing="false" onAction="#btnAddItemAction" prefHeight="42.0" prefWidth="134.0" text="Adicionar item" />
                </children>
             </Pane>

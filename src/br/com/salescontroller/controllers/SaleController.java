@@ -141,9 +141,32 @@ public class SaleController implements Initializable {
         if (event.getCode().equals(KeyCode.ENTER)) searchClient();
     }
 
+    void searchProduct() {
+        ProductsDAO dao = new ProductsDAO();
+
+        Integer productId = (tfProductId.getText().isEmpty() ? 0 : Integer.parseInt(tfProductId.getText()));
+        ObservableList<ProductModel> products = dao.readByProductId(productId);
+
+        if (productId == 0) {
+            JOptionPane.showMessageDialog(null, "Produto não encontrado.");
+        } else {
+            try {
+                tfProductDescription.setText(products.get(0).getProductDescription());
+                tfProductPrice.setText(products.get(0).getPrice().toString());
+            } catch (IndexOutOfBoundsException e) {
+                JOptionPane.showMessageDialog(null, "Produto não encontrado.");
+            }
+        }
+    }
+
     @FXML
     void btnSearchProductAction(ActionEvent event) {
+        searchProduct();
+    }
 
+    @FXML
+    void productIdEnterAction(KeyEvent event) {
+        if (event.getCode().equals(KeyCode.ENTER)) searchProduct();
     }
 
     @FXML
