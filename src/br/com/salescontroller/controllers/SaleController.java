@@ -10,6 +10,8 @@ import br.com.salescontroller.dao.ClientsDAO;
 import br.com.salescontroller.dao.ProductsDAO;
 import br.com.salescontroller.models.ClientsModel;
 import br.com.salescontroller.models.ProductModel;
+import br.com.salescontroller.models.SaleItensModel;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -21,6 +23,7 @@ import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -46,22 +49,22 @@ public class SaleController implements Initializable {
     private Button btnSearchProduct;
 
     @FXML
-    private TableColumn<?, ?> tableCId;
+    private TableColumn<SaleItensModel, Float> tableCPrice;
 
     @FXML
-    private TableColumn<?, ?> tableCPrice;
+    private TableColumn<SaleItensModel, String> tableCProduct;
 
     @FXML
-    private TableColumn<?, ?> tableCProduct;
+    private TableColumn<SaleItensModel, Integer> tableCQuantity;
 
     @FXML
-    private TableColumn<?, ?> tableCQuantity;
+    private TableColumn<SaleItensModel, Float> tableCSubtotal;
 
     @FXML
-    private TableColumn<?, ?> tableCSubtotal;
+    private TableView<SaleItensModel> tableSalesItens;
 
-    @FXML
-    private TableView<?> tableSalesItens;
+    private ObservableList<SaleItensModel> saleItens = FXCollections.observableArrayList();
+    private Float total = 0f;
 
     @FXML
     private TextField tfClientCpf;
@@ -102,9 +105,33 @@ public class SaleController implements Initializable {
         }
     }
 
+    ObservableList<SaleItensModel> getProductItemRegistry() {
+        SaleItensModel saleItem = new SaleItensModel();
+
+        saleItem.setProduct(tfProductDescription.getText());
+        saleItem.setQuantity(tfProductQuantity.getValue());
+        saleItem.setPrice(Float.parseFloat(tfProductPrice.getText()));
+        saleItem.setSubtotal();
+
+        saleItens.add(saleItem);
+
+        total += saleItem.getSubtotal();
+
+        return saleItens;
+    }
+
     @FXML
-    void btnAddItemAction(ActionEvent event) {
+    void btnAddItemAction(ActionEvent event) {      
+        ObservableList<SaleItensModel> saleItens = getProductItemRegistry();       
         
+        tableCProduct.setCellValueFactory(new PropertyValueFactory<SaleItensModel, String>("product"));
+        tableCQuantity.setCellValueFactory(new PropertyValueFactory<SaleItensModel, Integer>("quantity"));
+        tableCPrice.setCellValueFactory(new PropertyValueFactory<SaleItensModel, Float>("price"));
+        tableCSubtotal.setCellValueFactory(new PropertyValueFactory<SaleItensModel, Float>("subtotal"));
+        
+        tableSalesItens.setItems(saleItens);
+        
+        tfSaleTotal.setText(total.toString());
     }
 
     @FXML

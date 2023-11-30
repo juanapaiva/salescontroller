@@ -74,8 +74,7 @@ public class ProductsDAO {
     public ObservableList<ProductModel> readByProductId(Integer id) {
         try {
             ObservableList<ProductModel> products = FXCollections.observableArrayList();
-            String sql = "SELECT p.id, p.productdescription, p.price, p.stock, s.suppliername FROM tb_products p "
-                        + "INNER JOIN tb_suppliers s ON (p.supplierid = s.id) WHERE p.id = ?";
+            String sql = "SELECT * FROM tb_products WHERE id = ?";
             PreparedStatement stmt = con.prepareStatement(sql);
 
             stmt.setInt(1, id);
@@ -84,15 +83,11 @@ public class ProductsDAO {
 
             while(rs.next()) {
                 ProductModel product = new ProductModel();
-                SuppliersModel supplier = new SuppliersModel();
 
-                product.setId(rs.getInt("p.id"));
-                product.setProductDescription(rs.getString("p.productdescription"));
-                product.setPrice(rs.getFloat("p.price"));
-                product.setStock(rs.getInt("p.stock"));
-
-                supplier.setName(rs.getString("s.suppliername"));
-                product.setSupplier(supplier);
+                product.setId(rs.getInt("id"));
+                product.setProductDescription(rs.getString("productdescription"));
+                product.setPrice(rs.getFloat("price"));
+                product.setStock(rs.getInt("stock"));
 
                 products.add(product);
             }

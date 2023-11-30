@@ -104,8 +104,7 @@
             </Label>
             <TableView fx:id="tableSalesItens" layoutX="415.0" layoutY="97.0" onMouseClicked="#selectedRegisterAction" prefHeight="215.0" prefWidth="426.0">
               <columns>
-                <TableColumn fx:id="tableCId" prefWidth="50.0" text="Código" />
-                <TableColumn fx:id="tableCProduct" prefWidth="150.0" text="Produto" />
+                <TableColumn fx:id="tableCProduct" prefWidth="200.0" text="Produto" />
                   <TableColumn fx:id="tableCQuantity" prefWidth="75.0" text="Quantidade" />
                   <TableColumn fx:id="tableCPrice" prefWidth="75.0" text="Preço" />
                   <TableColumn fx:id="tableCSubtotal" prefWidth="75.0" text="Subtotal" />
