@@ -1,5 +1,6 @@
 package br.com.salescontroller.controllers;
 
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
@@ -15,7 +16,11 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Spinner;
@@ -27,9 +32,29 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 
 public class SaleController implements Initializable {
 
+    // Screen navigation properties
+    private Stage stage;
+    private Scene scene;
+    private Parent root;
+
+    // Maintaining state
+    static Boolean firstEntry = true;
+    
+    static String clientCpf = "";
+    static String clientName = "";
+    static Integer productId = 0;
+    static String product = "";
+    static Float price = 0f;
+    static Integer quantity = 0;
+    static Float total = 0f;
+
+    static ObservableList<SaleItensModel> saleItens = FXCollections.observableArrayList();
+
+    //
     @FXML
     private Button btnAddItem;
 
@@ -63,9 +88,6 @@ public class SaleController implements Initializable {
     @FXML
     private TableView<SaleItensModel> tableSalesItens;
 
-    private ObservableList<SaleItensModel> saleItens = FXCollections.observableArrayList();
-    private Float total = 0f;
-
     @FXML
     private TextField tfClientCpf;
 
@@ -84,7 +106,7 @@ public class SaleController implements Initializable {
     @FXML
     private Spinner<Integer> tfProductQuantity;
 
-    private SpinnerValueFactory<Integer> valueFactory;
+    static SpinnerValueFactory<Integer> valueFactory;
 
     @FXML
     private DatePicker tfSaleDate;
@@ -96,6 +118,12 @@ public class SaleController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {;
         tfSaleDate.setValue(LocalDate.now());
+
+        if (!firstEntry) {
+            setStaticVariablesAndFields('f');
+            setCartItens();
+        }
+        firstEntry = false;
     }
 
     @FXML
@@ -120,8 +148,7 @@ public class SaleController implements Initializable {
         return saleItens;
     }
 
-    @FXML
-    void btnAddItemAction(ActionEvent event) {      
+    void setCartItens() {
         ObservableList<SaleItensModel> saleItens = getProductItemRegistry();       
         
         tableCProduct.setCellValueFactory(new PropertyValueFactory<SaleItensModel, String>("product"));
@@ -130,7 +157,11 @@ public class SaleController implements Initializable {
         tableCSubtotal.setCellValueFactory(new PropertyValueFactory<SaleItensModel, Float>("subtotal"));
         
         tableSalesItens.setItems(saleItens);
-        
+    }
+
+    @FXML
+    void btnAddItemAction(ActionEvent event) {      
+        setCartItens();        
         tfSaleTotal.setText(total.toString());
     }
 
@@ -140,13 +171,46 @@ public class SaleController implements Initializable {
     }
 
     @FXML
-    void btnMenuAction(ActionEvent event) {
+    void btnMenuAction(ActionEvent event) throws IOException {
+        root = FXMLLoader.load(getClass().getResource("../views/MenuPage.fxml"));
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+
+        stage.setTitle("Menu");
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    void setStaticVariablesAndFields(char type) {
+        if (type == 'v') {
+            clientCpf = tfClientCpf.getText();
+            clientName = tfClientName.getText();
+            productId = Integer.parseInt(tfProductId.getText());
+            product = tfProductDescription.getText();
+            price = Float.parseFloat(tfProductPrice.getText());
+            quantity = tfProductQuantity.getValue();
+        } else if (type == 'f') {
+            tfClientCpf.setText(clientCpf);
+            tfClientName.setText(clientName);
+            tfProductId.setText(productId.toString());
+            tfProductDescription.setText(product);
+            tfProductPrice.setText(price.toString());
+            tfProductQuantity.setValueFactory(valueFactory);
+        }
 
     }
 
     @FXML
-    void btnPaymentPageAction(ActionEvent event) {
+    void btnPaymentPageAction(ActionEvent event) throws IOException {
+        setStaticVariablesAndFields('v');
 
+        root = FXMLLoader.load(getClass().getResource("../views/PaymentPage.fxml"));
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+
+        stage.setTitle("Pagamento");
+        stage.setScene(scene);
+        stage.show();
     }
 
     void searchClient() {
