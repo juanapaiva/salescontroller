@@ -3,7 +3,11 @@ package br.com.salescontroller.controllers;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.Set;
 
 import javax.swing.JOptionPane;
 
@@ -51,6 +55,7 @@ public class SaleController implements Initializable {
     static Float price = 0f;
     static Integer quantity = 0;
     static Float total = 0f;
+    static Float saleItemPrice = 0f;
 
     static ObservableList<SaleItensModel> saleItens = FXCollections.observableArrayList();
 
@@ -88,6 +93,8 @@ public class SaleController implements Initializable {
     @FXML
     private TableView<SaleItensModel> tableSalesItens;
 
+    //static ObservableList<SaleItensModel> carItens;
+
     @FXML
     private TextField tfClientCpf;
 
@@ -107,6 +114,7 @@ public class SaleController implements Initializable {
     private Spinner<Integer> tfProductQuantity;
 
     static SpinnerValueFactory<Integer> valueFactory;
+    private Map<Integer, Integer> productStock = new HashMap<>();
 
     @FXML
     private DatePicker tfSaleDate;
@@ -136,6 +144,7 @@ public class SaleController implements Initializable {
     ObservableList<SaleItensModel> getProductItemRegistry() {
         SaleItensModel saleItem = new SaleItensModel();
 
+        saleItem.setId(Integer.parseInt(tfProductId.getText()));
         saleItem.setProduct(tfProductDescription.getText());
         saleItem.setQuantity(tfProductQuantity.getValue());
         saleItem.setPrice(Float.parseFloat(tfProductPrice.getText()));
@@ -143,25 +152,55 @@ public class SaleController implements Initializable {
 
         saleItens.add(saleItem);
 
-        total += saleItem.getSubtotal();
+        saleItemPrice = saleItem.getSubtotal();
 
         return saleItens;
     }
 
+    Boolean itemExists(ObservableList<SaleItensModel> carItens) {
+        Set<Integer> uniques = new HashSet<>();
+        for (SaleItensModel item : carItens) {
+            if (uniques.add(item.getId())) continue;
+            else return true;
+        }
+        return false;
+    }
+
+    Boolean isOnStock(ObservableList<SaleItensModel> carItens) {
+        System.out.println("Car Item ID: " + carItens.get(carItens.size()-1).getId());
+        System.out.println("Sale Item ID: " + saleItens.get(saleItens.size()-1).getId());
+        return true;
+    }
+
     void setCartItens() {
-        ObservableList<SaleItensModel> saleItens = getProductItemRegistry();       
-        
-        tableCProduct.setCellValueFactory(new PropertyValueFactory<SaleItensModel, String>("product"));
-        tableCQuantity.setCellValueFactory(new PropertyValueFactory<SaleItensModel, Integer>("quantity"));
-        tableCPrice.setCellValueFactory(new PropertyValueFactory<SaleItensModel, Float>("price"));
-        tableCSubtotal.setCellValueFactory(new PropertyValueFactory<SaleItensModel, Float>("subtotal"));
-        
-        tableSalesItens.setItems(saleItens);
+        ObservableList<SaleItensModel> carItens = getProductItemRegistry();
+
+        if (!itemExists(carItens) && isOnStock(carItens)) {
+            tableCProduct.setCellValueFactory(new PropertyValueFactory<SaleItensModel, String>("product"));
+            tableCQuantity.setCellValueFactory(new PropertyValueFactory<SaleItensModel, Integer>("quantity"));
+            tableCPrice.setCellValueFactory(new PropertyValueFactory<SaleItensModel, Float>("price"));
+            tableCSubtotal.setCellValueFactory(new PropertyValueFactory<SaleItensModel, Float>("subtotal"));
+            
+            tableSalesItens.setItems(saleItens);
+            total += saleItemPrice;
+        } else {
+            saleItens.remove(saleItens.size()-1);
+        }
     }
 
     @FXML
     void btnAddItemAction(ActionEvent event) {      
-        setCartItens();        
+        setCartItens();
+
+        Integer quantityAdded = (tfProductQuantity.getValue() == null) ? 0 : tfProductQuantity.getValue();
+
+        //System.out.println(valueFactory.getValue());
+        //System.out.println(productStock.get(Integer.parseInt(tfProductId.getText())) - quantityAdded);
+
+        valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 
+                                                productStock.get(Integer.parseInt(tfProductId.getText())) - quantityAdded);
+        tfProductQuantity.setValueFactory(valueFactory);
+        
         tfSaleTotal.setText(total.toString());
     }
 
@@ -202,6 +241,7 @@ public class SaleController implements Initializable {
 
     @FXML
     void btnPaymentPageAction(ActionEvent event) throws IOException {
+        //validateStock();
         setStaticVariablesAndFields('v');
 
         root = FXMLLoader.load(getClass().getResource("../views/PaymentPage.fxml"));
@@ -235,6 +275,20 @@ public class SaleController implements Initializable {
         if (event.getCode().equals(KeyCode.ENTER)) searchClient();
     }
 
+    /*void validateStock(Integer productId, ObservableList<ProductModel> products) {
+        productStock.put(productId, products.get(0).getStock());
+
+        ProductsDAO dao = new ProductsDAO();
+
+        if (products.get(0).getStock() < )
+        tfProductDescription.setText(products.get(0).getProductDescription());
+        tfProductPrice.setText(products.get(0).getPrice().toString());
+
+        valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, products.get(0).getStock());
+        tfProductQuantity.setValueFactory(valueFactory);
+
+    }*/
+
     void searchProduct() {
         ProductsDAO dao = new ProductsDAO();
 
@@ -248,7 +302,11 @@ public class SaleController implements Initializable {
                 tfProductDescription.setText(products.get(0).getProductDescription());
                 tfProductPrice.setText(products.get(0).getPrice().toString());
 
-                valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, products.get(0).getStock());
+                productStock.put(productId, products.get(0).getStock());
+
+                Integer quantityAdded = (tfProductQuantity.getValue() == null) ? 0 : tfProductQuantity.getValue();
+                valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 
+                                                        productStock.get(Integer.parseInt(tfProductId.getText())) - quantityAdded);
                 tfProductQuantity.setValueFactory(valueFactory);
             } catch (IndexOutOfBoundsException e) {
                 JOptionPane.showMessageDialog(null, "Produto não encontrado.");
